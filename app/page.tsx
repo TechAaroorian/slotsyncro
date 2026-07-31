@@ -1,54 +1,40 @@
 // app/page.tsx
-import Image from "next/image";
+import Link from "next/link";
 import { auth } from "@/auth";
-import { SignIn, SignOut } from "@/components/auth-components";
+import { SignIn } from "@/components/auth-components";
 
 export default async function Home() {
   const session = await auth();
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
-      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center space-y-6">
+    <main className="min-h-[calc(100vh-65px)] flex flex-col items-center justify-center p-6">
+      <div className="max-w-md w-full bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 text-center space-y-6 transition-colors">
         <div className="space-y-2">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
             SlotSyncro 🗓️
           </h1>
-          <p className="text-sm text-gray-500">
-            Universal group scheduling & real-time heatmap builder.
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Universal group scheduling & real-time availability heatmap builder.
           </p>
         </div>
 
         {session?.user ? (
-          <div className="p-5 bg-gray-50 rounded-xl border border-gray-200 text-left space-y-4">
-            <div className="flex items-center space-x-3">
-              {session.user.image ? (
-                <Image
-                  src={session.user.image}
-                  alt={session.user.name || "User Avatar"}
-                  width={48}
-                  height={48}
-                  className="rounded-full border border-gray-300 object-cover"
-                />
-              ) : (
-                <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-gray-700 font-bold">
-                  {session.user.name?.[0] || "U"}
-                </div>
-              )}
-              <div>
-                <p className="text-sm font-bold text-gray-900">
-                  {session.user.name}
-                </p>
-                <p className="text-xs text-gray-500">{session.user.email}</p>
-              </div>
+          <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700/60 text-left space-y-4">
+            <div>
+              <p className="text-xs uppercase tracking-wider text-gray-400 font-bold">
+                Welcome back
+              </p>
+              <p className="text-base font-bold text-gray-900 dark:text-white">
+                {session.user.name} 👋
+              </p>
             </div>
 
-            <div className="text-xs font-mono bg-white p-2.5 rounded border border-gray-200 text-gray-600 truncate">
-              <span className="text-gray-400">ID:</span> {session.user.id}
-            </div>
-
-            <div className="pt-1">
-              <SignOut />
-            </div>
+            <Link
+              href="/create-poll"
+              className="block w-full text-center py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 text-white text-xs font-bold rounded-lg transition-all shadow-sm active:scale-95"
+            >
+              + Create New Poll
+            </Link>
           </div>
         ) : (
           <div className="pt-2">
