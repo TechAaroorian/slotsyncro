@@ -3,6 +3,7 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { SignIn, SignOut } from "@/components/auth-components";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "./logo";
 
 export async function Header() {
   const session = await auth();
@@ -12,6 +13,7 @@ export async function Header() {
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Brand Logo & Name */}
         <Link href="/" className="flex items-center space-x-2 group">
+          <Logo className="w-7 h-7 group-hover:scale-105 transition-transform" />
           <span className="text-xl font-black tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             SlotSyncro 🗓️
           </span>
