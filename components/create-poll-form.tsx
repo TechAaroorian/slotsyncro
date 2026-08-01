@@ -1,15 +1,19 @@
 "use client";
 
 import { useActionState } from "react";
-import { useTranslations } from "next-intl"; // 1. Import useTranslations
+import { useTranslations } from "next-intl";
 import { createPoll } from "@/app/actions/poll";
 import { PollFormState } from "@/lib/schemas/poll";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const initialState: PollFormState = {};
 
 export function CreatePollForm() {
-  const t = useTranslations("CreatePoll"); // 2. Initialize translation hook
-
+  const t = useTranslations("CreatePoll");
   const [state, formAction, isPending] = useActionState(
     createPoll,
     initialState,
@@ -28,106 +32,103 @@ export function CreatePollForm() {
   ];
 
   return (
-    <form action={formAction} className="space-y-5">
-      {/* General Form Error */}
-      {state.errors?.formError && (
-        <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-lg text-xs text-red-600 dark:text-red-400 font-medium">
-          {state.errors.formError[0]}
-        </div>
-      )}
+    <Card className="max-w-xl mx-auto shadow-sm">
+      <CardHeader>
+        <CardTitle className="text-xl font-bold">{t("title")}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form action={formAction} className="space-y-5">
+          {/* General Form Error */}
+          {state.errors?.formError && (
+            <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg text-xs text-destructive font-medium">
+              {state.errors.formError[0]}
+            </div>
+          )}
 
-      {/* Poll Title Field */}
-      <div>
-        <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          {t("titleLabel")}
-        </label>
-        <input
-          type="text"
-          name="title"
-          placeholder={t("titlePlaceholder")}
-          className="w-full px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 transition-all"
-        />
-        {state.errors?.title && (
-          <p className="text-xs text-red-500 dark:text-red-400 font-medium mt-1.5">
-            {state.errors.title[0]}
-          </p>
-        )}
-      </div>
+          {/* Poll Title */}
+          <div className="space-y-2">
+            <Label htmlFor="title">{t("titleLabel")}</Label>
+            <Input
+              id="title"
+              name="title"
+              placeholder={t("titlePlaceholder")}
+            />
+            {state.errors?.title && (
+              <p className="text-xs text-destructive font-medium">
+                {state.errors.title[0]}
+              </p>
+            )}
+          </div>
 
-      {/* Description Field */}
-      <div>
-        <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          {t("descLabel")}
-        </label>
-        <textarea
-          name="description"
-          rows={2}
-          placeholder={t("descPlaceholder")}
-          className="w-full px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 transition-all resize-none"
-        />
-        {state.errors?.description && (
-          <p className="text-xs text-red-500 dark:text-red-400 font-medium mt-1.5">
-            {state.errors.description[0]}
-          </p>
-        )}
-      </div>
+          {/* Description */}
+          <div className="space-y-2">
+            <Label htmlFor="description">{t("descLabel")}</Label>
+            <Input
+              id="description"
+              name="description"
+              placeholder={t("descPlaceholder")}
+            />
+            {state.errors?.description && (
+              <p className="text-xs text-destructive font-medium">
+                {state.errors.description[0]}
+              </p>
+            )}
+          </div>
 
-      {/* Meeting Date Field */}
-      <div>
-        <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          {t("dateLabel")}
-        </label>
-        <input
-          type="date"
-          name="slotDate"
-          defaultValue={new Date().toISOString().split("T")[0]}
-          className="w-full px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 transition-all scheme-light dark:scheme-dark"
-        />
-        {state.errors?.slotDate && (
-          <p className="text-xs text-red-500 dark:text-red-400 font-medium mt-1.5">
-            {state.errors.slotDate[0]}
-          </p>
-        )}
-      </div>
+          {/* Meeting Date */}
+          <div className="space-y-2">
+            <Label htmlFor="slotDate">{t("dateLabel")}</Label>
+            <Input
+              id="slotDate"
+              type="date"
+              name="slotDate"
+              defaultValue={new Date().toISOString().split("T")[0]}
+            />
+            {state.errors?.slotDate && (
+              <p className="text-xs text-destructive font-medium">
+                {state.errors.slotDate[0]}
+              </p>
+            )}
+          </div>
 
-      {/* Time Slots Selection */}
-      <div>
-        <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          {t("slotsLabel")}
-        </label>
-        <div className="grid grid-cols-3 gap-2">
-          {defaultHours.map((hour) => (
-            <label
-              key={hour}
-              className="flex items-center space-x-2 p-2.5 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors"
-            >
-              <input
-                type="checkbox"
-                name="startHours"
-                value={hour}
-                className="w-4 h-4 text-gray-900 dark:text-white rounded focus:ring-gray-900 dark:focus:ring-gray-100 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-              />
-              <span className="text-xs font-medium text-gray-800 dark:text-gray-200">
-                {hour}
-              </span>
-            </label>
-          ))}
-        </div>
-        {state.errors?.startHours && (
-          <p className="text-xs text-red-500 dark:text-red-400 font-medium mt-1.5">
-            {state.errors.startHours[0]}
-          </p>
-        )}
-      </div>
+          {/* Time Slots Selection */}
+          <div className="space-y-2">
+            <Label>{t("slotsLabel")}</Label>
+            <div className="grid grid-cols-3 gap-2">
+              {defaultHours.map((hour) => (
+                <label
+                  key={hour}
+                  className="flex items-center space-x-2 p-2.5 bg-muted/50 border border-border rounded-lg hover:bg-muted cursor-pointer transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    name="startHours"
+                    value={hour}
+                    className="w-4 h-4 rounded border-input"
+                  />
+                  <span className="text-xs font-medium text-foreground">
+                    {hour}
+                  </span>
+                </label>
+              ))}
+            </div>
+            {state.errors?.startHours && (
+              <p className="text-xs text-destructive font-medium">
+                {state.errors.startHours[0]}
+              </p>
+            )}
+          </div>
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isPending}
-        className="w-full py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 text-white font-medium text-sm rounded-lg disabled:bg-gray-400 dark:disabled:bg-gray-600 transition-all shadow-md active:scale-95"
-      >
-        {isPending ? t("submitting") : t("submitBtn")}
-      </button>
-    </form>
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="w-full font-bold"
+          >
+            {isPending ? t("submitting") : t("submitBtn")}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 }
