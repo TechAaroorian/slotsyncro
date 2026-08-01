@@ -17,12 +17,13 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  
-  // Custom SlotSyncro Relation
-  polls         Poll[]
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  // Custom SlotSyncro Relations
+  polls     Poll[]
+  responses Availability[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Account {
@@ -63,28 +64,42 @@ model VerificationToken {
 // -------------------------------------------------------------
 // SlotSyncro Application Models (Group Polling & Heatmap)
 // -------------------------------------------------------------
-model Poll {
-  id           String        @id @default(cuid())
-  title        String
-  description  String?
-  hostId       String
-  host         User          @relation(fields: [hostId], references: [id], onDelete: Cascade)
-  participants Participant[]
-  createdAt    DateTime      @default(now())
-}
 
-model Participant {
-  id        String     @id @default(cuid())
-  name      String
-  pollId    String
-  poll      Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
-  timeSlots TimeSlot[]
+model Poll {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  slug        String   @unique // Shareable URL identifier (e.g. /poll/sprint-planning-a1b2)
+  hostId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  host      User           @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  slots     TimeSlot[]
+  responses Availability[]
 }
 
 model TimeSlot {
-  id            String      @id @default(cuid())
-  participantId String
-  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
-  startTime     DateTime
-  endTime       DateTime
+  id        String   @id @default(cuid())
+  pollId    String
+  startTime DateTime
+  endTime   DateTime
+
+  poll         Poll           @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  availability Availability[]
+}
+
+model Availability {
+  id               String  @id @default(cuid())
+  pollId           String
+  timeSlotId       String
+  participantName  String
+  participantEmail String?
+  userId           String? // Optional: if logged-in user votes
+
+  poll     Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  timeSlot TimeSlot @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
+  user     User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@unique([timeSlotId, participantName]) // Prevents duplicate votes per slot by same participant
 }

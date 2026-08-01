@@ -1,0 +1,24 @@
+{
+  "Header": {
+    "title": "SlotSyncro 🗓️",
+    "version": "v1.0"
+  },
+  "Home": {
+    "title": "SlotSyncro 🗓️",
+    "subtitle": "Programación de reuniones grupales y creador de mapas de calor en tiempo real.",
+    "welcome": "Bienvenido de nuevo",
+    "createPoll": "+ Crear nueva encuesta"
+  },
+  "CreatePoll": {
+    "title": "Crear nueva encuesta de reunión 🗓️",
+    "subtitle": "Configure fechas y horarios para recopilar la disponibilidad de su equipo.",
+    "titleLabel": "Título de la encuesta *",
+    "titlePlaceholder": "ej., Planificación de Sprint o Revisión de Diseño",
+    "descLabel": "Descripción (Opcional)",
+    "descPlaceholder": "Añadir contexto de la reunión...",
+    "dateLabel": "Fecha de la reunión *",
+    "slotsLabel": "Seleccione franjas horarias disponibles (1 hora) *",
+    "submitBtn": "Crear encuesta y compartir enlace 🚀",
+    "submitting": "Creando encuesta..."
+  }
+}
