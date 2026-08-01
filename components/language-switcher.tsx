@@ -2,30 +2,70 @@
 
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
+import { Globe, Check } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+const LANGUAGES = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+];
 
 export function LanguageSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const nextLocale = e.target.value;
+  const handleLanguageChange = (nextLocale: string) => {
+    if (nextLocale === locale) return;
+
+    // Replace locale prefix in the pathname
     const newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
     router.push(newPath || `/${nextLocale}`);
   };
 
   return (
-    <div className="relative inline-block">
-      <select
-        value={locale}
-        onChange={handleLanguageChange}
-        className="px-2 py-1 text-xs font-semibold bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-800 dark:text-gray-200 focus:outline-none cursor-pointer uppercase"
+    <DropdownMenu>
+      {/* Trigger styled with Shadcn buttonVariants */}
+      <DropdownMenuTrigger
+        className={buttonVariants({
+          variant: "outline",
+          size: "sm",
+          className:
+            "h-9 px-2.5 gap-1.5 uppercase font-semibold text-xs cursor-pointer outline-none",
+        })}
         aria-label="Switch Language"
       >
-        <option value="en">🌐 EN</option>
-        <option value="es">🌐 ES</option>
-        <option value="de">🌐 DE</option>
-      </select>
-    </div>
+        <Globe className="h-3.5 w-3.5 text-muted-foreground" />
+        <span>{locale}</span>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="end" className="w-40">
+        {LANGUAGES.map((lang) => {
+          const isSelected = locale === lang.code;
+          return (
+            <DropdownMenuItem
+              key={lang.code}
+              onClick={() => handleLanguageChange(lang.code)}
+              className="flex items-center justify-between cursor-pointer text-xs"
+            >
+              <div className="flex items-center gap-2">
+                <span>{lang.flag}</span>
+                <span className={isSelected ? "font-bold" : "font-normal"}>
+                  {lang.label}
+                </span>
+              </div>
+              {isSelected && <Check className="h-3.5 w-3.5 text-primary" />}
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
