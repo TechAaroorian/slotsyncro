@@ -1,12 +1,15 @@
 "use client";
 
 import { useActionState } from "react";
+import { useTranslations } from "next-intl"; // 1. Import useTranslations
 import { createPoll } from "@/app/actions/poll";
 import { PollFormState } from "@/lib/schemas/poll";
 
 const initialState: PollFormState = {};
 
 export function CreatePollForm() {
+  const t = useTranslations("CreatePoll"); // 2. Initialize translation hook
+
   const [state, formAction, isPending] = useActionState(
     createPoll,
     initialState,
@@ -36,12 +39,12 @@ export function CreatePollForm() {
       {/* Poll Title Field */}
       <div>
         <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          Poll Title *
+          {t("titleLabel")}
         </label>
         <input
           type="text"
           name="title"
-          placeholder="e.g., Sprint Planning or Product Design Review"
+          placeholder={t("titlePlaceholder")}
           className="w-full px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 transition-all"
         />
         {state.errors?.title && (
@@ -54,12 +57,12 @@ export function CreatePollForm() {
       {/* Description Field */}
       <div>
         <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          Description (Optional)
+          {t("descLabel")}
         </label>
         <textarea
           name="description"
           rows={2}
-          placeholder="Add meeting context..."
+          placeholder={t("descPlaceholder")}
           className="w-full px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 transition-all resize-none"
         />
         {state.errors?.description && (
@@ -72,13 +75,13 @@ export function CreatePollForm() {
       {/* Meeting Date Field */}
       <div>
         <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          Meeting Date *
+          {t("dateLabel")}
         </label>
         <input
           type="date"
           name="slotDate"
           defaultValue={new Date().toISOString().split("T")[0]}
-          className="w-full px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 transition-all [color-scheme:light] dark:[color-scheme:dark]"
+          className="w-full px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 transition-all scheme-light dark:scheme-dark"
         />
         {state.errors?.slotDate && (
           <p className="text-xs text-red-500 dark:text-red-400 font-medium mt-1.5">
@@ -90,7 +93,7 @@ export function CreatePollForm() {
       {/* Time Slots Selection */}
       <div>
         <label className="block text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 tracking-wider mb-2">
-          Select Available Time Slots (1-hour slots) *
+          {t("slotsLabel")}
         </label>
         <div className="grid grid-cols-3 gap-2">
           {defaultHours.map((hour) => (
@@ -123,7 +126,7 @@ export function CreatePollForm() {
         disabled={isPending}
         className="w-full py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 text-white font-medium text-sm rounded-lg disabled:bg-gray-400 dark:disabled:bg-gray-600 transition-all shadow-md active:scale-95"
       >
-        {isPending ? "Creating Poll..." : "Create Poll & Share Link 🚀"}
+        {isPending ? t("submitting") : t("submitBtn")}
       </button>
     </form>
   );

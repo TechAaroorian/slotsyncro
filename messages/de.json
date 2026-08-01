@@ -1,0 +1,24 @@
+{
+  "Header": {
+    "title": "SlotSyncro 🗓️",
+    "version": "v1.0"
+  },
+  "Home": {
+    "title": "SlotSyncro 🗓️",
+    "subtitle": "Universelle Gruppenterminplanung & Echtzeit-Verfügbarkeitsanalyse.",
+    "welcome": "Willkommen zurück",
+    "createPoll": "+ Neue Umfrage erstellen"
+  },
+  "CreatePoll": {
+    "title": "Neue Terminumfrage erstellen 🗓️",
+    "subtitle": "Richten Sie Termine und Zeitfenster ein, um die Verfügbarkeit Ihres Teams zu erfassen.",
+    "titleLabel": "Umfragetitel *",
+    "titlePlaceholder": "z. B. Sprint-Planung oder Design-Review",
+    "descLabel": "Beschreibung (Optional)",
+    "descPlaceholder": "Kontext zum Meeting hinzufügen...",
+    "dateLabel": "Besprechungsdatum *",
+    "slotsLabel": "Verfügbare Zeitfenster auswählen (1-Stunden-Slots) *",
+    "submitBtn": "Umfrage erstellen & Link teilen 🚀",
+    "submitting": "Umfrage wird erstellt..."
+  }
+}

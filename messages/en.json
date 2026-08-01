@@ -1,0 +1,24 @@
+{
+  "Header": {
+    "title": "SlotSyncro 🗓️",
+    "version": "v1.0"
+  },
+  "Home": {
+    "title": "SlotSyncro 🗓️",
+    "subtitle": "Universal group scheduling & real-time availability heatmap builder.",
+    "welcome": "Welcome back",
+    "createPoll": "+ Create New Poll"
+  },
+  "CreatePoll": {
+    "title": "Create New Meeting Poll 🗓️",
+    "subtitle": "Set up meeting dates & time slots to gather availability from your team.",
+    "titleLabel": "Poll Title *",
+    "titlePlaceholder": "e.g., Sprint Planning or Product Design Review",
+    "descLabel": "Description (Optional)",
+    "descPlaceholder": "Add meeting context...",
+    "dateLabel": "Meeting Date *",
+    "slotsLabel": "Select Available Time Slots (1-hour slots) *",
+    "submitBtn": "Create Poll & Share Link 🚀",
+    "submitting": "Creating Poll..."
+  }
+}

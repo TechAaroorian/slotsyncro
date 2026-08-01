@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { SignIn, SignOut } from "@/components/auth-components";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "./logo";
+import { LanguageSwitcher } from "./language-switcher";
 
 export async function Header() {
   const session = await auth();
@@ -24,6 +25,7 @@ export async function Header() {
 
         {/* Right Section: Actions & Profile */}
         <div className="flex items-center space-x-3">
+          <LanguageSwitcher />
           <ThemeToggle />
 
           {session?.user ? (

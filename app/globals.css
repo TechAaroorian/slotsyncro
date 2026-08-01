@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* 1. Tell Tailwind v4 to look for the .dark class on <html> */
+@variant dark (&:where(.dark, .dark *));
+
+/* 2. Map CSS variables into Tailwind v4 utility theme tokens */
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+}
+
+/* 3. Base Variable Definitions */
 @layer base {
   :root {
     --background: #f9fafb;
