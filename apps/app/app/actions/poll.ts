@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { db } from "@/lib/db";
+import { db } from "@repo/db";
 import { CreatePollSchema, PollFormState } from "@/lib/schemas/poll";
 import { redirect } from "next/navigation";
 
