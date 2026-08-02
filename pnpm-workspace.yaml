@@ -1,7 +1,11 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
 allowBuilds:
-  '@parcel/watcher': false
-  '@prisma/engines': false
-  '@swc/core': false
+  "@parcel/watcher": false
+  "@prisma/engines": false
+  "@swc/core": false
   prisma: false
   sharp: false
   unrs-resolver: false
