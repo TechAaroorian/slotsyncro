@@ -9,6 +9,7 @@
     "db:push": "turbo db:push"
   },
   "devDependencies": {
+    "@types/node": "^26.1.2",
     "turbo": "^2.10.8"
   },
   "packageManager": "pnpm@9.0.0"

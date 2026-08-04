@@ -1,3 +1,5 @@
+// packages/db/prisma/schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,24 +8,32 @@ datasource db {
   provider = "postgresql"
 }
 
-// -------------------------------------------------------------
-// Auth.js / NextAuth required models for User Management
-// -------------------------------------------------------------
+// =============================================================
+// AUTH.JS / NEXTAUTH & USER MANAGEMENT MODELS
+// =============================================================
+
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
+  username      String?   @unique
+  timeZone      String    @default("UTC")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  // Custom SlotSyncro Relations
+  accounts Account[]
+  sessions Session[]
+
   polls     Poll[]
   responses Availability[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  eventTypes         EventType[]
+  weeklyAvailability UserAvailability[]
+  bookings           Booking[]          @relation("HostBookings")
+
+  @@index([username])
 }
 
 model Account {
@@ -61,15 +71,104 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// -------------------------------------------------------------
-// SlotSyncro Application Models (Group Polling & Heatmap)
-// -------------------------------------------------------------
+// =============================================================
+// 1-ON-1 SCHEDULING MODELS
+// =============================================================
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum BookingStatus {
+  PENDING
+  ACCEPTED
+  CANCELLED
+}
+
+enum AvailabilityStatus {
+  YES
+  IF_NEEDED
+  NO
+}
+
+model EventType {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String
+  description String? @db.Text
+  duration    Int
+  isArchived  Boolean @default(false)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, slug])
+  @@index([userId])
+}
+
+model UserAvailability {
+  id        String    @id @default(cuid())
+  day       DayOfWeek
+  startTime String
+  endTime   String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Booking {
+  id String @id @default(cuid())
+
+  hostId String
+  host   User   @relation("HostBookings", fields: [hostId], references: [id], onDelete: Cascade)
+
+  eventTypeId String
+  eventType   EventType @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
+
+  guestName     String
+  guestEmail    String
+  guestNotes    String? @db.Text
+  guestTimeZone String
+
+  startTime DateTime
+  endTime   DateTime
+
+  status         BookingStatus @default(ACCEPTED)
+  googleMeetLink String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([hostId])
+  @@index([eventTypeId])
+  @@index([startTime, endTime])
+}
+
+// =============================================================
+// GROUP POLLING & HEATMAP MODELS
+// =============================================================
 
 model Poll {
   id          String   @id @default(cuid())
   title       String
   description String?
-  slug        String   @unique // Shareable URL identifier (e.g. /poll/sprint-planning-a1b2)
+  slug        String   @unique
   hostId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -95,11 +194,14 @@ model Availability {
   timeSlotId       String
   participantName  String
   participantEmail String?
-  userId           String? // Optional: if logged-in user votes
+  userId           String?
+
+  // Idea #2: 3-State Voting Status
+  status AvailabilityStatus @default(YES)
 
   poll     Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
   timeSlot TimeSlot @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
   user     User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
-  @@unique([timeSlotId, participantName]) // Prevents duplicate votes per slot by same participant
+  @@unique([timeSlotId, participantName])
 }
