@@ -1,10 +1,11 @@
+// apps/app/auth.ts
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
-import { db, PrismaAdapter } from "@repo/db"; // <-- Updated import from shared package
+import { PrismaAdapter } from "@repo/db";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(), // <-- Called with 0 arguments!
   session: { strategy: "jwt" },
   providers: [
     Google({

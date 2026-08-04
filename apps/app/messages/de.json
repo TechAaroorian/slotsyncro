@@ -20,5 +20,34 @@
     "slotsLabel": "Verfügbare Zeitfenster auswählen (1-Stunden-Slots) *",
     "submitBtn": "Umfrage erstellen & Link teilen 🚀",
     "submitting": "Umfrage wird erstellt..."
+  },
+  "PollHeatmap": {
+    "title": "Gruppenverfügbarkeit",
+    "noResponses": "Noch keine Antworten. Sei der Erste, der seine Verfügbarkeit einträgt!",
+    "responsesCount": "Aggregierter Konsens von {count} Teilnehmer(n).",
+    "badges": {
+      "yes": "{count} Ja",
+      "maybe": "{count} Bei Bedarf",
+      "no": "{count} Nein"
+    },
+    "scoreLabel": "{score} / {total} gewichtete Konsenspunkte"
+  },
+  "PollVoting": {
+    "title": "Stimme Abgeben",
+    "subtitle": "Wähle deine Präferenz für jeden vorgeschlagenen Zeit-Slot aus.",
+    "yourName": "Dein Name",
+    "namePlaceholder": "z. B. Max Mustermann",
+    "emailOptional": "E-Mail (Optional)",
+    "emailPlaceholder": "max@beispiel.de",
+    "slotAvailability": "Deine Verfügbarkeit pro Zeit-Slot",
+    "nameRequiredError": "Bitte gib deinen Namen ein, um abzustimmen.",
+    "submitError": "Fehler beim Senden der Stimmen. Bitte versuche es erneut.",
+    "submitting": "Stimmen werden gesendet...",
+    "submit": "Verfügbarkeit Absenden",
+    "status": {
+      "yes": "Ja",
+      "ifNeeded": "Bei Bedarf",
+      "no": "Nein"
+    }
   }
 }

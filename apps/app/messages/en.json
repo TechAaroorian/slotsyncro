@@ -20,5 +20,34 @@
     "slotsLabel": "Select Available Time Slots (1-hour slots) *",
     "submitBtn": "Create Poll & Share Link 🚀",
     "submitting": "Creating Poll..."
+  },
+  "PollHeatmap": {
+    "title": "Group Availability",
+    "noResponses": "No responses yet. Be the first to submit your availability!",
+    "responsesCount": "Aggregated consensus from {count} participant(s).",
+    "badges": {
+      "yes": "{count} Yes",
+      "maybe": "{count} Maybe",
+      "no": "{count} No"
+    },
+    "scoreLabel": "{score} / {total} weighted consensus points"
+  },
+  "PollVoting": {
+    "title": "Cast Your Vote",
+    "subtitle": "Select your preference for each proposed time slot below.",
+    "yourName": "Your Name",
+    "namePlaceholder": "e.g. Alex Johnson",
+    "emailOptional": "Email (Optional)",
+    "emailPlaceholder": "alex@example.com",
+    "slotAvailability": "Your Availability per Slot",
+    "nameRequiredError": "Please enter your name to submit votes.",
+    "submitError": "Failed to submit votes. Please try again.",
+    "submitting": "Submitting Votes...",
+    "submit": "Submit Availability",
+    "status": {
+      "yes": "Yes",
+      "ifNeeded": "If Needed",
+      "no": "No"
+    }
   }
 }
