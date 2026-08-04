@@ -1,3 +1,4 @@
+// apps/app/lib/schemas/poll.ts
 import { z } from "zod";
 
 export const CreatePollSchema = z.object({
@@ -10,7 +11,8 @@ export const CreatePollSchema = z.object({
     .string()
     .trim()
     .max(300, { message: "Description cannot exceed 300 characters." })
-    .optional(),
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)), // Converts empty string "" to undefined
   slotDate: z
     .string()
     .min(1, { message: "Please select a valid meeting date." }),

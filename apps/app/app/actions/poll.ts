@@ -1,3 +1,4 @@
+// apps/app/actions/poll.ts
 "use server";
 
 import { auth } from "@/auth";
@@ -20,17 +21,18 @@ export async function createPoll(
   }
 
   // Extract raw form entries
+  const descriptionRaw = formData.get("description") as string | null;
+
   const rawData = {
     title: formData.get("title"),
-    description: formData.get("description"),
+    description: descriptionRaw?.trim() || undefined, // Store undefined/null when empty
     slotDate: formData.get("slotDate"),
-    startHours: formData.getAll("startHours"), // Collects all checked checkboxes into an array
+    startHours: formData.getAll("startHours"),
   };
 
   // Validate using Zod
   const validatedFields = CreatePollSchema.safeParse(rawData);
 
-  // Return formatted field errors if validation fails
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -51,9 +53,11 @@ export async function createPoll(
   let createdSlug = "";
 
   try {
-    // Construct slot dates
+    // Construct UTC slot datetimes safely
     const timeSlotsData = startHours.map((time) => {
-      const startDateTime = new Date(`${slotDate}T${time}:00`);
+      // Ensure time string format is HH:mm (e.g., "09:00")
+      const formattedTime = time.length === 5 ? `${time}:00` : time;
+      const startDateTime = new Date(`${slotDate}T${formattedTime}`);
       const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
 
       return {
@@ -75,7 +79,8 @@ export async function createPoll(
     });
 
     createdSlug = poll.slug;
-  } catch {
+  } catch (error) {
+    console.error("Failed to create poll:", error);
     return {
       errors: {
         formError: ["Database error: Failed to create poll. Please try again."],

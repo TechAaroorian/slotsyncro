@@ -2,9 +2,10 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { neonConfig } from "@neondatabase/serverless";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter as BasePrismaAdapter } from "@auth/prisma-adapter";
 import ws from "ws";
 
+// Set up WebSocket constructor for Node.js environments
 neonConfig.webSocketConstructor = ws;
 
 const connectionString = process.env.DATABASE_URL;
@@ -23,5 +24,7 @@ export const db = globalForPrisma.prisma ?? new PrismaClient({ adapter });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
-export { PrismaAdapter };
+// Export pre-configured Auth.js PrismaAdapter factory
+export const PrismaAdapter = () => BasePrismaAdapter(db);
+
 export * from "@prisma/client";
