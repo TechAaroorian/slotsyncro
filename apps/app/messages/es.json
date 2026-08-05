@@ -20,5 +20,34 @@
     "slotsLabel": "Seleccione franjas horarias disponibles (1 hora) *",
     "submitBtn": "Crear encuesta y compartir enlace 🚀",
     "submitting": "Creando encuesta..."
+  },
+  "PollHeatmap": {
+    "title": "Disponibilidad del Grupo",
+    "noResponses": "Aún no hay respuestas. ¡Sé el primero en enviar tu disponibilidad!",
+    "responsesCount": "Consenso agregado de {count} participante(s).",
+    "badges": {
+      "yes": "{count} Sí",
+      "maybe": "{count} Quizás",
+      "no": "{count} No"
+    },
+    "scoreLabel": "{score} / {total} puntos de consenso ponderado"
+  },
+  "PollVoting": {
+    "title": "Emite tu Voto",
+    "subtitle": "Selecciona tu preferencia para cada franja horaria propuesta.",
+    "yourName": "Tu Nombre",
+    "namePlaceholder": "ej. Alejandro Gómez",
+    "emailOptional": "Correo Electrónico (Opcional)",
+    "emailPlaceholder": "alejandro@ejemplo.com",
+    "slotAvailability": "Tu Disponibilidad por Franja Horaria",
+    "nameRequiredError": "Por favor, introduce tu nombre para enviar los votos.",
+    "submitError": "Error al enviar los votos. Inténtalo de nuevo.",
+    "submitting": "Enviando Votos...",
+    "submit": "Enviar Disponibilidad",
+    "status": {
+      "yes": "Sí",
+      "ifNeeded": "Si es Necesario",
+      "no": "No"
+    }
   }
 }

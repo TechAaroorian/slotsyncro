@@ -2,7 +2,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { db } from "@repo/db";
+import { db, AvailabilityStatus } from "@repo/db";
 import { CreatePollSchema, PollFormState } from "@/lib/schemas/poll";
 import { redirect } from "next/navigation";
 
@@ -90,4 +90,54 @@ export async function createPoll(
 
   // Redirect host after successful creation
   redirect(`/poll/${createdSlug}`);
+}
+
+export interface VoteSubmission {
+  slotId: string;
+  status: AvailabilityStatus;
+}
+
+export async function submitPollVotes(data: {
+  pollId: string;
+  participantName: string;
+  participantEmail?: string;
+  votes: VoteSubmission[];
+}) {
+  const { pollId, participantName, participantEmail, votes } = data;
+  const normalizedName = participantName.trim();
+
+  if (!normalizedName) {
+    return { success: false, error: "Participant name is required" };
+  }
+
+  try {
+    await db.$transaction(async (tx) => {
+      // 1. Clear previous votes for this participant on this poll
+      await tx.availability.deleteMany({
+        where: {
+          pollId,
+          participantName: {
+            equals: normalizedName,
+            mode: "insensitive", // Handles case differences like "Alex" vs "alex"
+          },
+        },
+      });
+
+      // 2. Insert new set of votes
+      await tx.availability.createMany({
+        data: votes.map((vote) => ({
+          pollId,
+          timeSlotId: vote.slotId,
+          participantName: normalizedName,
+          participantEmail: participantEmail?.trim() || null,
+          status: vote.status,
+        })),
+      });
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to submit poll votes:", error);
+    return { success: false, error: "Database transaction failed" };
+  }
 }
