@@ -6,9 +6,17 @@ on:
   pull_request:
     branches: [main]
 
+# 1. Grant permissions required for GitHub Pages & PR comments
 permissions:
-  pull-requests: write # Required to post comments on Pull Requests
   contents: read
+  pull-requests: write
+  pages: write
+  id-token: write
+
+# 2. Ensure only one Pages deployment runs at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   test-and-coverage:
@@ -40,7 +48,7 @@ jobs:
       - name: Run Vitest Coverage
         run: pnpm --filter app test:coverage
 
-      # 1. Post In-PR Coverage Summary Table (PRs only)
+      # Post summary comment on Pull Requests
       - name: Post PR Coverage Comment
         uses: davelosert/vitest-coverage-report-action@v2
         if: github.event_name == 'pull_request' && always()
@@ -48,7 +56,7 @@ jobs:
           json-summary-path: ./apps/app/coverage/coverage-summary.json
           json-final-path: ./apps/app/coverage/coverage-final.json
 
-      # 2. Save Interactive HTML Report as Workflow Artifact (Downloadable on every run)
+      # Upload ZIP artifact to Actions tab (Backup access)
       - name: Upload HTML Coverage Report Artifact
         uses: actions/upload-artifact@v4
         if: always()
@@ -56,3 +64,19 @@ jobs:
           name: vitest-html-coverage-report
           path: apps/app/coverage/
           retention-days: 14
+
+      # --- GitHub Pages Deployment Steps (Only runs on push to main) ---
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/app/coverage/
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        id: deployment
+        uses: actions/deploy-pages@v4
