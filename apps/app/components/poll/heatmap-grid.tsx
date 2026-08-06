@@ -3,6 +3,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
+import { calculateSlotScore } from "@/lib/poll-utils"; // 👈 Import from poll-utils
 
 export interface ParticipantVote {
   participantName: string;
@@ -37,8 +38,8 @@ export function HeatmapGrid({
         ).length;
         const noCount = slot.votes.filter((v) => v.status === "NO").length;
 
-        // Weighted score calculation (Yes = 1 point, If Needed = 0.5 points, No = 0 points)
-        const score = yesCount + ifNeededCount * 0.5;
+        // 🟢 Replaced inline calculation with calculateSlotScore helper
+        const score = calculateSlotScore(slot.votes);
         const scoreRatio =
           totalParticipants > 0 ? score / totalParticipants : 0;
 
