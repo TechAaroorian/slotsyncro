@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: "jsdom",
+    environment: "happy-dom",
     env: {
       DATABASE_URL: "postgresql://mock:mock@localhost:5432/testdb",
     },
