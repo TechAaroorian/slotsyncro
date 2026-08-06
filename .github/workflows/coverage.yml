@@ -20,11 +20,6 @@ jobs:
   test-and-coverage:
     runs-on: ubuntu-latest
 
-    # Target the github-pages environment so deployment state receives lifecycle updates
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -59,27 +54,23 @@ jobs:
           json-summary-path: ./apps/app/coverage/coverage-summary.json
           json-final-path: ./apps/app/coverage/coverage-final.json
 
-      # Upload ZIP artifact to Actions tab (Backup access)
-      - name: Upload HTML Coverage Report Artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: vitest-html-coverage-report
-          path: ./apps/app/coverage/
-          retention-days: 14
-
-      # --- GitHub Pages Deployment Steps ---
-      - name: Setup Pages
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: actions/configure-pages@v5
-
+      # Upload Pages artifact for deployment job
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: "./apps/app/coverage"
 
+  deploy-pages:
+    needs: test-and-coverage
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         id: deployment
         uses: actions/deploy-pages@v4

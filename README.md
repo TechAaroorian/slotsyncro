@@ -62,7 +62,7 @@ slotsyncro/
 1. **Clone the repository:**
 
 ```bash
-git clone [https://github.com/YOUR_GITHUB_USERNAME/slotsyncro.git](https://github.com/YOUR_GITHUB_USERNAME/slotsyncro.git)
+git clone [https://github.com/TechAaroorian/slotsyncro.git](https://github.com/TechAaroorian/slotsyncro.git)
 cd slotsyncro
 
 ```
