@@ -13,8 +13,6 @@ The unit test suite achieves full coverage using **Vitest** and **happy-dom**. T
 
 👉 **[View Live Coverage Report](https://techaaroorian.github.io/slotsyncro/)**
 
-*(Note: Replace `YOUR_GITHUB_USERNAME` in the links with your actual GitHub username)*
-
 ---
 
 ## 🏗️ Monorepo Architecture

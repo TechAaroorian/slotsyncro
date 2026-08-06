@@ -80,3 +80,5 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 600000 # 10 minutes
