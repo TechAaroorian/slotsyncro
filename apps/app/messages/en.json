@@ -49,5 +49,42 @@
       "ifNeeded": "If Needed",
       "no": "No"
     }
+  },
+  "EventTypes": {
+    "title": "Create Event Type",
+    "description": "Configure duration, buffers, and URL slug for your scheduling link.",
+    "form": {
+      "titleLabel": "Event Title",
+      "titlePlaceholder": "e.g., 30 Min Discovery Call",
+      "slugLabel": "URL Slug",
+      "slugPlaceholder": "30-min-discovery",
+      "durationLabel": "Duration (minutes)",
+      "bufferBeforeLabel": "Buffer Before (minutes)",
+      "bufferAfterLabel": "Buffer After (minutes)",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Briefly describe the purpose of this meeting...",
+      "submitButton": "Create Event Type",
+      "submitting": "Creating..."
+    },
+    "errors": {
+      "slugExists": "An event type with this slug already exists in your account.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "Availability": {
+    "title": "Weekly Availability",
+    "description": "Set your recurring working hours and timezone.",
+    "timeZoneLabel": "Host Timezone",
+    "saveSchedule": "Save Schedule",
+    "saving": "Saving...",
+    "days": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    }
   }
 }
