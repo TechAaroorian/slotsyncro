@@ -30,6 +30,7 @@ export default defineConfig({
         "**/*.d.ts",
         "**/*.test.ts",
         "node_modules/**",
+        "**/index.ts",
       ],
       thresholds: {
         lines: 80,

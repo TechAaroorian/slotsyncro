@@ -1,7 +1,7 @@
 // apps/app/lib/__tests__/utils.test.ts
 import { describe, it, expect } from "vitest";
-import { cn } from "../utils";
-import { CreatePollSchema } from "../schemas/poll";
+import { cn } from "./utils";
+import { CreatePollSchema } from "./schemas/poll";
 
 describe("lib/utils.ts - cn()", () => {
   it("should merge tailwind classes properly", () => {

@@ -118,10 +118,12 @@ model EventType {
 }
 
 model UserAvailability {
-  id        String    @id @default(cuid())
-  day       DayOfWeek
-  startTime String
-  endTime   String
+  id          String    @id @default(cuid())
+  day         DayOfWeek
+  isAvailable Boolean   @default(true)
+  startTime   String
+  endTime     String
+  slots       Json // Array of [{ startTime: "09:00", endTime: "17:00" }]
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -129,6 +131,7 @@ model UserAvailability {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([userId, day])
   @@index([userId])
 }
 
