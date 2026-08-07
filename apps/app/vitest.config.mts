@@ -19,7 +19,7 @@ export default defineConfig({
     },
     coverage: {
       provider: "v8",
-      reporter: ["text", "json", "html"],
+      reporter: ["text", "json", "json-summary", "html"],
       include: ["lib/**/*.ts", "actions/**/*.ts", "components/**/*.tsx"],
       // 2. Explicitly exclude glue files, UI components, pages, and config files
       exclude: [
