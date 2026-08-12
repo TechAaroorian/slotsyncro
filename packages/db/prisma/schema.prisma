@@ -98,12 +98,14 @@ enum AvailabilityStatus {
 }
 
 model EventType {
-  id          String  @id @default(cuid())
-  title       String
-  slug        String
-  description String? @db.Text
-  duration    Int
-  isArchived  Boolean @default(false)
+  id           String  @id @default(cuid())
+  title        String
+  slug         String
+  description  String? @db.Text
+  duration     Int
+  isArchived   Boolean @default(false)
+  bufferBefore Int     @default(0)
+  bufferAfter  Int     @default(0)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
