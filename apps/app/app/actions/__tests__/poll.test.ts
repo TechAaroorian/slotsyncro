@@ -110,8 +110,9 @@ describe("actions/poll.ts", () => {
   describe("createPoll() - Branch Coverage Tests", () => {
     it("should return unauthorized error when session or user ID is missing (Line 16)", async () => {
       // Mock unauthenticated session
-      vi.mocked(auth).mockResolvedValueOnce(null);
-
+      vi.mocked(auth).mockResolvedValueOnce(
+        null as unknown as Awaited<ReturnType<typeof auth>>,
+      );
       const formData = new FormData();
       formData.append("title", "Unauthorized Poll");
 
