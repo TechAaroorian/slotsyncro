@@ -1,6 +1,7 @@
 import { db } from "@repo/db";
 import { notFound } from "next/navigation";
 import { BookingView } from "@/components/booking/booking-view";
+import { auth } from "@/auth";
 
 interface PublicBookingPageProps {
   params: Promise<{
@@ -15,7 +16,18 @@ export default async function PublicBookingPage({
 }: PublicBookingPageProps) {
   const { locale, username, slug } = await params;
 
-  // 🎯 Query host by username OR fallback to user ID if username is null
+  // 1. Fetch current user session to auto-populate the booking form
+  const session = await auth();
+
+  const loggedInUser = session?.user?.id
+    ? {
+        id: session.user.id as string,
+        name: session.user.name || "",
+        email: session.user.email || "",
+      }
+    : null;
+
+  // 2. Query host by username OR fallback to user ID if username is null
   const host = await db.user.findFirst({
     where: {
       OR: [{ username: username }, { id: username }],
@@ -29,7 +41,7 @@ export default async function PublicBookingPage({
     notFound();
   }
 
-  // Fetch the event type scoped to this host
+  // 3. Fetch the event type scoped to this host
   const eventType = await db.eventType.findUnique({
     where: {
       userId_slug: {
@@ -43,12 +55,12 @@ export default async function PublicBookingPage({
     notFound();
   }
 
-  // Fetch existing bookings to calculate availability conflicts
+  // 4. Fetch existing bookings to calculate availability conflicts
   const existingBookings = await db.booking.findMany({
     where: {
       hostId: host.id,
       startTime: {
-        gte: new Date(),
+        gte: new Date(), // Only fetch future bookings to save memory
       },
     },
   });
@@ -62,6 +74,7 @@ export default async function PublicBookingPage({
           weeklyAvailability={host.weeklyAvailability}
           existingBookings={existingBookings}
           locale={locale}
+          loggedInUser={loggedInUser} // Type error resolved
         />
       </div>
     </main>

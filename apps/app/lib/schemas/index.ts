@@ -2,3 +2,4 @@
 export * from "./event-type";
 export * from "./availability";
 export * from "./poll";
+export * from "./booking";
