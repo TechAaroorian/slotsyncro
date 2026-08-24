@@ -4,7 +4,10 @@ import { useTransition } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createBookingSchema, type CreateBookingInput } from "@/lib/schemas";
-import { createBooking } from "@/app/actions/booking";
+import {
+  createBooking,
+  type CreateBookingSuccess,
+} from "@/app/actions/booking";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,7 +26,7 @@ interface BookingFormProps {
   guestTimeZone: string;
   loggedInUser?: { id: string; name: string; email: string } | null;
   onBack: () => void;
-  onSuccess: (bookingId: string) => void;
+  onSuccess: (confirmation: CreateBookingSuccess) => void;
 }
 
 export function BookingForm({
@@ -66,7 +69,7 @@ export function BookingForm({
     startTransition(async () => {
       const response = await createBooking(data);
       if (response.success) {
-        onSuccess(response.bookingId);
+        onSuccess(response);
       } else {
         if (response.fieldErrors) {
           Object.entries(response.fieldErrors).forEach(([field, messages]) => {
@@ -180,7 +183,7 @@ export function BookingForm({
           {isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Scheduling Meeting...
+              Confirming booking and sending invitation...
             </>
           ) : (
             "Confirm & Schedule"

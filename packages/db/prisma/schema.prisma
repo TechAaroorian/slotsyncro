@@ -137,6 +137,16 @@ model UserAvailability {
   @@index([userId])
 }
 
+// Define an enum to track the type of meeting location
+enum MeetingProvider {
+  GOOGLE_MEET
+  ZOOM
+  MICROSOFT_TEAMS
+  PHONE
+  IN_PERSON
+  OTHER
+}
+
 model Booking {
   id String @id @default(cuid())
 
@@ -154,8 +164,14 @@ model Booking {
   startTime DateTime
   endTime   DateTime
 
-  status         BookingStatus @default(ACCEPTED)
-  googleMeetLink String?
+  status BookingStatus @default(ACCEPTED)
+
+  // ✨ REPLACED: Generic fields for any meeting platform
+  meetingUrl      String? // e.g. "https://zoom.us/j/123456789"
+  meetingProvider MeetingProvider? // e.g. ZOOM
+
+  // Unique identifier for iCalendar external sync
+  icsUid String? @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

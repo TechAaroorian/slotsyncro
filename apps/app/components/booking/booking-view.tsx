@@ -20,6 +20,7 @@ import {
 } from "@/lib/availability/engine";
 import { BookingForm } from "./booking-form";
 import { BookingSuccess } from "./booking-success";
+import type { CreateBookingSuccess } from "@/app/actions/booking";
 
 export type BookingStep = "SELECTING_SLOT" | "ENTERING_DETAILS" | "CONFIRMED";
 
@@ -74,6 +75,8 @@ export function BookingView({
     new Date(),
   );
   const [selectedSlot, setSelectedSlot] = useState<Date | null>(null);
+  const [confirmation, setConfirmation] =
+    useState<CreateBookingSuccess | null>(null);
 
   const guestTimeZone = useMemo(() => {
     return (
@@ -235,21 +238,26 @@ export function BookingView({
               selectedSlot={selectedSlot}
               guestTimeZone={guestTimeZone}
               onBack={() => setStep("SELECTING_SLOT")}
-              onSuccess={() => setStep("CONFIRMED")}
+              onSuccess={(result) => {
+                setConfirmation(result);
+                setStep("CONFIRMED");
+              }}
               loggedInUser={loggedInUser}
             />
           )}
 
           {/* Step 3: Success Confirmation State */}
-          {step === "CONFIRMED" && selectedSlot && (
+          {step === "CONFIRMED" && selectedSlot && confirmation && (
             <BookingSuccess
               eventTitle={eventType.title}
               hostName={host.name || host.username || "Host"}
               startTime={selectedSlot}
               duration={eventType.duration}
               timeZone={guestTimeZone}
+              emailDelivery={confirmation.emailDelivery}
               onBookAnother={() => {
                 setSelectedSlot(null);
+                setConfirmation(null);
                 setStep("SELECTING_SLOT");
               }}
             />
