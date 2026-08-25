@@ -3,6 +3,10 @@
 
 > A modern, serverless group scheduling platform and availability heatmap builder built with **Next.js (App Router)**, **TypeScript**, **Turborepo**, and **Neon PostgreSQL**.
 
+## Product and architecture documentation
+
+The maintained product design, feature inventory, repository architecture, and documentation roadmap are available in the [design documentation](./docs/README.md).
+
 [![Test Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](https://techaaroorian.github.io/slotsyncro/)
 
 ---
