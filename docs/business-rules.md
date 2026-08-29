@@ -298,20 +298,14 @@ When a business rule changes:
 5. Update tests that reference the rule.
 6. Record an ADR if the change is long-lived, cross-cutting, or expensive to reverse.
 
-## Next documentation step
+## Related design outcomes
 
-Create the **current domain model and ER diagram** directly from the existing Prisma schema.
+The schema audit and subsequent design are now documented in:
 
-The current-model document should identify:
+- [Current domain model](./domain-model-current.md)
+- [Proposed domain decisions](./domain-decisions.md)
+- [Proposed domain model](./domain-model-proposed.md)
+- [System architecture](./system-architecture.md)
+- [Roadmap](./roadmap.md)
 
-- Entities and their present names
-- Primary and foreign keys
-- Cardinality and optionality
-- Unique constraints and indexes
-- Referential actions
-- Rules currently enforced by schema
-- Rules that the schema cannot currently enforce
-- Naming collisions such as `Availability` meaning a poll vote while `UserAvailability` means a schedule
-
-Only after the current model is accurate should a separate proposed ER model be designed.
-
+Business rules remain authoritative inputs. As implementation progresses, update each rule's status and enforcement evidence rather than treating the proposed model as already shipped.

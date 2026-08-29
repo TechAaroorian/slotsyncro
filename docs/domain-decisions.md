@@ -1,6 +1,6 @@
 # Proposed Domain Decisions
 
-**Document status:** Recommended for review  
+**Document status:** Accepted modeling directions; explicitly noted mechanisms remain unresolved
 **Purpose:** Resolve the major choices exposed by the journeys, use cases, business rules, and current ER audit before drawing the proposed ER model
 
 ## How to use this document
@@ -31,24 +31,24 @@ Accepted decisions that are expensive to reverse will later receive their own AD
 
 | ID | Decision | Recommendation | Status |
 | --- | --- | --- | --- |
-| DD-001 | Scheduled commitment | Introduce `Meeting` as the shared final commitment | Recommended |
-| DD-002 | Direct-booking source | Retain a source record linked one-to-one with its meeting | Recommended |
-| DD-003 | Poll outcome | Finalized poll links to one selected candidate and one meeting | Recommended |
-| DD-004 | Participant identity | Use poll/meeting-scoped participant entities with optional user link | Recommended |
-| DD-005 | Ownership boundary | Introduce a personal workspace for every user; add team UX later | Recommended |
-| DD-006 | Availability model | Separate schedule timezone from user profile and normalize windows | Recommended |
-| DD-007 | Lifecycle history | Current state plus append-only lifecycle events; not full event sourcing | Recommended |
-| DD-008 | Deletion and retention | Archive configuration; preserve/anonymize transactional history | Recommended |
-| DD-009 | Notifications | Persist notification intent and delivery attempts separately | Recommended |
-| DD-010 | External integrations | Keep provider connections/references outside core meeting columns | Recommended |
-| DD-011 | Concurrency | Database-backed overlap protection plus command idempotency | Recommended, mechanism unresolved |
-| DD-012 | Open and private polls | Support both through explicit access policy | Recommended |
+| DD-001 | Scheduled commitment | Introduce `Meeting` as the shared final commitment | Accepted |
+| DD-002 | Direct-booking source | Retain a source record linked one-to-one with its meeting | Accepted |
+| DD-003 | Poll outcome | Finalized poll links to one selected candidate and one meeting | Accepted |
+| DD-004 | Participant identity | Use poll/meeting-scoped participant entities with optional user link | Accepted |
+| DD-005 | Ownership boundary | Introduce a personal workspace for every user; add team UX later | Accepted |
+| DD-006 | Availability model | Separate schedule timezone from user profile and normalize windows | Accepted |
+| DD-007 | Lifecycle history | Current state plus append-only lifecycle events; not full event sourcing | Accepted |
+| DD-008 | Deletion and retention | Archive configuration; preserve/anonymize transactional history | Accepted |
+| DD-009 | Notifications | Persist notification intent and delivery attempts separately | Accepted |
+| DD-010 | External integrations | Keep provider connections/references outside core meeting columns | Accepted |
+| DD-011 | Concurrency | Database-backed overlap protection plus command idempotency | Accepted principle; mechanism unresolved |
+| DD-012 | Open and private polls | Support both through explicit access policy | Accepted |
 
 ---
 
 ## DD-001: Introduce Meeting as the shared scheduled commitment
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -107,7 +107,7 @@ Preserves source-specific models but duplicates cancellation, rescheduling, part
 
 ## DD-002: Preserve a direct-booking source record
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -150,7 +150,7 @@ Store enough accepted booking context to interpret the meeting even if the event
 
 ## DD-003: Finalized poll has one selected candidate and one meeting
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -191,7 +191,7 @@ Whether an authorized host may explicitly reopen a finalized poll is deferred. D
 
 ## DD-004: Use scoped participant entities
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -246,7 +246,7 @@ The exact token design, response anonymity, and email-normalization policy remai
 
 ## DD-005: Introduce personal workspaces as the ownership boundary
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -312,7 +312,7 @@ Rejects multi-workspace membership and cannot represent different roles in diffe
 
 ## DD-006: Normalize recurring availability windows
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -366,7 +366,7 @@ The physical representation of local time—database `time`, minute-of-day integ
 
 ## DD-007: Current state plus append-only lifecycle events
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -417,7 +417,7 @@ This is an audit/history pattern, not full event sourcing. Current state remains
 
 ## DD-008: Archive configuration and preserve transactional history
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -447,7 +447,7 @@ Formal data-retention periods and legal/privacy obligations are outside the curr
 
 ## DD-009: Persist notification intent and attempts separately
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -487,7 +487,7 @@ Whether `Notification` itself acts as an outbox job or references a generic job 
 
 ## DD-010: Isolate provider-specific integration data
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -527,7 +527,7 @@ Meeting location may use provider-neutral types such as video, phone, in-person,
 
 ## DD-011: Use database-backed overlap protection and command idempotency
 
-**Status:** Recommended; exact mechanism unresolved
+**Status:** Accepted principle; exact mechanism unresolved
 
 ### Problem
 
@@ -568,7 +568,7 @@ The exact overlap mechanism is expensive to reverse and should receive an ADR af
 
 ## DD-012: Support open-link and invitation-only polls explicitly
 
-**Status:** Recommended
+**Status:** Accepted
 
 ### Problem
 
@@ -651,17 +651,6 @@ Before accepting these recommendations, verify:
 - [ ] Concurrency and idempotency solve different invariants.
 - [ ] Migration from every current table is explainable.
 
-## Next documentation step
+## Related design outcomes
 
-After reviewing or accepting these decisions, create `domain-model-proposed.md` with:
-
-- Entity definitions
-- ER diagram
-- Keys and cardinalities
-- Lifecycle enums and transition diagrams
-- Unique and check constraints
-- Aggregate transaction boundaries
-- Index/access-pattern analysis
-- Mapping from current tables to proposed tables
-- Incremental migration phases
-
+These decisions are represented in the [proposed domain model](./domain-model-proposed.md), realized at runtime by the [system architecture](./system-architecture.md), and sequenced in the [roadmap](./roadmap.md). Deferred physical mechanisms become focused ADRs or prototypes at the roadmap decision gates.

@@ -962,30 +962,17 @@ These preliminary rules appear across several use cases and will be normalized i
 - **BR-REL-002:** Retried commands must not create duplicate business outcomes.
 - **BR-REL-003:** Multi-record lifecycle transitions are atomic where partial state would be invalid.
 
-## Open decisions exposed by the use cases
+## Decision outcomes and remaining gates
 
-1. Does direct booking create a `Booking` that is itself the scheduled commitment, or does it create a separate `Meeting`?
-2. Does onboarding create a personal workspace immediately?
-3. Are open-link and invitation-only polls both supported?
-4. How is participant identity represented for accountless users?
-5. What is the exact lifecycle state machine for polls and meetings?
-6. Which database strategy prevents overlapping active bookings under concurrency?
-7. Which actors may cancel or reschedule, and how are accountless actors authorized?
-8. Is meeting history modeled as revisions, lifecycle events, or audit records?
-9. What durable-job mechanism will support notification and calendar work?
-10. When can an automatic finalization policy act on behalf of a host?
+Subsequent design work resolved the main structural questions:
 
-These decisions must be addressed before the proposed ER model is treated as accepted.
+- Direct booking and poll finalization converge on a shared `Meeting`.
+- Every user receives a personal workspace as the ownership boundary.
+- Polls support open-link and invitation-only access policies.
+- Accountless people use poll/meeting-scoped participant records with secure capability tokens where required.
+- Current lifecycle state is paired with append-only lifecycle events.
+- Notification intent and delivery attempts are persisted separately from meeting truth.
 
-## Next documentation step
+Implementation-time gates remain for the physical PostgreSQL overlap mechanism, exact cancellation/rescheduling policies, durable-worker trigger, and automatic-finalization policy.
 
-Create `business-rules.md` to:
-
-1. Remove duplicate preliminary rules.
-2. Give each rule one authoritative definition.
-3. Classify rules as current, target, or unresolved.
-4. Connect rules to use cases and future tests.
-5. Identify which rules require database constraints versus application enforcement.
-
-The current ER diagram can then be documented accurately, followed by a proposed model tested against these use cases and rules.
-
+See [business rules](./business-rules.md), [proposed domain decisions](./domain-decisions.md), [proposed domain model](./domain-model-proposed.md), and the [roadmap](./roadmap.md).

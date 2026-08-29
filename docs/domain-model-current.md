@@ -777,7 +777,7 @@ The database does not currently guarantee:
 
 Some of these should remain application rules; others need database support in the proposed model.
 
-## Questions for the proposed model
+## Questions answered by the proposed model
 
 1. Should `Booking` remain the final scheduled entity, or should direct booking create a `Meeting`?
 2. Should historical meetings survive deletion of users and event-type configuration?
@@ -790,17 +790,6 @@ Some of these should remain application rules; others need database support in t
 9. How should workspace ownership coexist with host identity?
 10. Which external provider fields belong in core tables versus integration-reference tables?
 
-## Next documentation step
+## Related target design
 
-Create `domain-model-proposed.md` only after reviewing the questions above.
-
-The proposed model should:
-
-- Name aggregate roots explicitly.
-- Separate identity, ownership, participation, and authorization.
-- Make invalid cross-poll relationships structurally difficult or impossible.
-- Define direct-booking and poll-finalization convergence.
-- Represent lifecycle and history deliberately.
-- Preserve internal truth independently from external provider state.
-- Identify database constraints, application rules, and transaction boundaries.
-- Include a migration path from every current entity rather than presenting a clean-slate schema only.
+The answers and migration direction are recorded in the [proposed domain decisions](./domain-decisions.md) and [proposed domain model](./domain-model-proposed.md). This document remains the current-schema baseline until implementation changes the Prisma schema; update it after each migrated vertical slice.

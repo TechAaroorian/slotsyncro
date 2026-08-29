@@ -4,6 +4,8 @@ This directory is the maintained source of truth for SlotSyncro's product and te
 
 SlotSyncro started as a portfolio project inspired by scheduling products such as Calendly and Doodle. Its proposed product direction is a timezone-aware scheduling and group-decision platform that supports direct booking and fairness-based consensus scheduling.
 
+The core design-documentation baseline is complete as of 2026-08-29. Proposed-model and architecture checklists describe implementation evidence still to be produced; they do not mean the documentation itself is missing.
+
 ## How to read these documents
 
 The documentation uses the following status labels:
@@ -26,15 +28,16 @@ Statements about current behavior should be verifiable in code. Proposed behavio
 | [Feature inventory](./feature-inventory.md) | Current, partial, proposed, and later capabilities | Initial draft |
 | [Repository architecture](./repository-architecture.md) | Turborepo structure, application boundaries, dependency rules, and package strategy | Initial draft |
 | [ADR 0001: Modular monolith](./adr/0001-adopt-modular-monolith.md) | Accepted decision for structuring the product application as business modules | Accepted |
+| [ADR 0002: Vercel deployment](./adr/0002-deploy-nextjs-applications-on-vercel.md) | Accepted host and project boundaries for the two Next.js applications | Accepted |
 | [User journeys](./user-journeys.md) | Actors, current experience, target outcomes, and cross-journey requirements | Initial draft |
 | [Use cases](./use-cases.md) | Preconditions, authorization, success, failures, postconditions, and preliminary rules | Initial draft |
 | [Business rules](./business-rules.md) | Authoritative invariants, current enforcement, target rules, and test implications | Initial draft |
 | [Current domain model](./domain-model-current.md) | Existing Prisma entities, ER diagram, keys, cardinality, constraints, indexes, and integrity gaps | Current-state analysis |
-| [Proposed domain decisions](./domain-decisions.md) | Recommended choices and trade-offs that must be reviewed before the proposed ER model | Recommended for review |
-| Proposed domain model | Target entities, aggregate boundaries, lifecycle states, constraints, and migration path | Planned |
-| System architecture | Runtime components, integrations, security boundaries, and sequences | Planned |
-| Deployment architecture | Environments, domains, infrastructure, and operational concerns | Planned |
-| Roadmap | Vertical delivery milestones and dependencies | Planned |
+| [Proposed domain decisions](./domain-decisions.md) | Accepted modeling choices, trade-offs, and explicitly unresolved mechanisms | Accepted directions |
+| [Proposed domain model](./domain-model-proposed.md) | Target entities, ER diagrams, lifecycle states, constraints, transactions, and migration path | Proposed logical design |
+| [System architecture](./system-architecture.md) | Modular runtime boundaries, request and transaction flows, durable work, integrations, security, and sequences | Proposed runtime design |
+| [Deployment architecture](./deployment-architecture.md) | Environments, deployable units, database, releases, secrets, observability, backups, and recovery | Proposed deployment design |
+| [Roadmap](./roadmap.md) | Vertical delivery milestones, dependencies, decision gates, and completion evidence | Proposed delivery plan |
 | [Content opportunities](./content-opportunities.md) | Reusable learning and publishing ideas discovered during development | Active backlog |
 
 ## Articles
@@ -86,6 +89,7 @@ Small implementation details do not require ADRs.
 Accepted decisions:
 
 - [ADR 0001: Adopt a modular monolith for the product application](./adr/0001-adopt-modular-monolith.md)
+- [ADR 0002: Deploy the Next.js applications on Vercel](./adr/0002-deploy-nextjs-applications-on-vercel.md)
 
 ## Existing historical context
 
