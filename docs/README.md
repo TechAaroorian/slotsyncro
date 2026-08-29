@@ -26,9 +26,12 @@ Statements about current behavior should be verifiable in code. Proposed behavio
 | [Feature inventory](./feature-inventory.md) | Current, partial, proposed, and later capabilities | Initial draft |
 | [Repository architecture](./repository-architecture.md) | Turborepo structure, application boundaries, dependency rules, and package strategy | Initial draft |
 | [ADR 0001: Modular monolith](./adr/0001-adopt-modular-monolith.md) | Accepted decision for structuring the product application as business modules | Accepted |
-| User journeys | End-to-end direct-booking and group-scheduling journeys | Planned |
-| Use cases | Actors, permissions, preconditions, alternative flows, and failures | Planned |
-| Domain model | Current and proposed ER models, invariants, and lifecycle states | Planned |
+| [User journeys](./user-journeys.md) | Actors, current experience, target outcomes, and cross-journey requirements | Initial draft |
+| [Use cases](./use-cases.md) | Preconditions, authorization, success, failures, postconditions, and preliminary rules | Initial draft |
+| [Business rules](./business-rules.md) | Authoritative invariants, current enforcement, target rules, and test implications | Initial draft |
+| [Current domain model](./domain-model-current.md) | Existing Prisma entities, ER diagram, keys, cardinality, constraints, indexes, and integrity gaps | Current-state analysis |
+| [Proposed domain decisions](./domain-decisions.md) | Recommended choices and trade-offs that must be reviewed before the proposed ER model | Recommended for review |
+| Proposed domain model | Target entities, aggregate boundaries, lifecycle states, constraints, and migration path | Planned |
 | System architecture | Runtime components, integrations, security boundaries, and sequences | Planned |
 | Deployment architecture | Environments, domains, infrastructure, and operational concerns | Planned |
 | Roadmap | Vertical delivery milestones and dependencies | Planned |

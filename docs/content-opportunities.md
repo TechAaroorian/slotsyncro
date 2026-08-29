@@ -90,7 +90,7 @@ Possible formats:
 - **Short/Reel:** “Your feature works, but does the journey finish?”
 - **LinkedIn/X:** A before/after user-journey diagram
 
-Readiness: **Ready after user journeys are documented.**
+Readiness: **Ready for an outline; the current and target journeys are now documented.**
 
 ### 4. Designing timezone fairness for distributed teams
 
@@ -152,6 +152,54 @@ Possible formats:
 
 Readiness: **Architecture decision is ready; implementation content should wait for the first modular vertical slice.**
 
+### 8. Business rules are not validation code
+
+Core lesson:
+
+> A business invariant can require coordinated enforcement across validation, a database constraint, a transaction, and tests.
+
+Possible formats:
+
+- **Article:** From business rule to database constraint and test strategy
+- **YouTube:** Audit which rules a real schema enforces and which it only appears to enforce
+- **Short/Reel:** “Your Zod schema is not your domain model”
+- **LinkedIn:** Compare UI validation, application policy, and database invariants
+- **X:** Keep the post general—for example, explain why a pre-insert uniqueness query still needs a unique constraint
+
+Readiness: **Ready for an outline; implementation examples should follow the ER and constraint review.**
+
+### 9. Reading an ER diagram as a set of guarantees
+
+Core lesson:
+
+> An ER diagram is valuable when it explains cardinality, optionality, ownership, and integrity—not merely table boxes connected by lines.
+
+Possible formats:
+
+- **Article:** Audit an existing relational schema before redesigning it
+- **YouTube:** Trace keys, cascades, normalization trade-offs, and missing invariants
+- **Short/Reel:** “A foreign key proves existence, not authorization”
+- **LinkedIn:** How redundant foreign keys can create valid-looking but contradictory rows
+- **X:** Keep examples generic, such as explaining why two valid foreign keys can still form an invalid combination
+
+Readiness: **Ready for an outline; proposed-model comparison will strengthen the long-form version.**
+
+### 10. Separate the scheduled commitment from how it was created
+
+Core lesson:
+
+> Several workflows can produce the same business outcome without forcing their source-specific fields into one table.
+
+Possible formats:
+
+- **Article:** Model a shared aggregate produced by multiple workflows
+- **YouTube:** Compare one nullable universal table with a core outcome plus source records
+- **Short/Reel:** “The workflow that creates a record is not always the record itself”
+- **LinkedIn:** Explain provenance versus current business state
+- **X:** Keep it general: distinguish an order from the checkout session, a shipment from its purchase flow, or a meeting from its scheduling method
+
+Readiness: **Ready after DD-001 and DD-002 are accepted and represented in the proposed ER model.**
+
 ## Publishing record template
 
 When an idea is selected, add:
@@ -179,4 +227,6 @@ Published URLs:
 - Credit external sources and libraries.
 - Do not manufacture performance claims without measurements.
 - Keep portfolio content connected to the actual repository history.
+- Keep X posts application-agnostic: publish the general engineering principle rather than a project update.
+- Use articles and YouTube for project-backed case studies when implementation evidence improves the lesson.
 
