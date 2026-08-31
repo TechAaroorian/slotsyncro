@@ -1,7 +1,7 @@
 # Feature Inventory
 
 **Document status:** Initial draft  
-**Last reviewed against repository:** 2026-08-29
+**Last reviewed against repository:** 2026-08-31
 
 This inventory separates implemented behavior from proposals. It is not a marketing feature list.
 
@@ -48,10 +48,10 @@ This inventory separates implemented behavior from proposals. It is not a market
 
 | Capability | Status | Notes |
 | --- | --- | --- |
-| Guest confirmation email | Partial | Implemented with React Email and Resend on the email-invitation feature branch; pending baseline reconciliation. |
-| ICS attachment | Partial | Stable booking UID and attachment generation exist on the email-invitation feature branch; pending baseline reconciliation. |
-| Guest-timezone email formatting | Partial | Implemented on the email-invitation feature branch; pending baseline reconciliation. |
-| Separate booking and email outcomes | Partial | Implemented on the email-invitation feature branch; durable delivery state remains proposed. |
+| Guest confirmation email | Current | Implemented with React Email and Resend in the reconciled baseline. |
+| ICS attachment | Current | Stable booking UID and attachment generation are implemented in the reconciled baseline. |
+| Guest-timezone email formatting | Current | Confirmation times are formatted in the guest's submitted timezone. |
+| Separate booking and email outcomes | Current | Booking success is reported independently from the email result; durable delivery state remains proposed. |
 | Persisted notification status | Proposed | Needed for delivery history, retries, and operational visibility. |
 | Retry failed notification | Proposed | Must include authorization, idempotency, and abuse controls. |
 | Host notification | Proposed | Host should receive or configure booking notifications. |

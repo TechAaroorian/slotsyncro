@@ -2,7 +2,7 @@
 
 **Document status:** Current-state analysis  
 **Schema source:** `packages/db/prisma/schema.prisma` on the documentation branch  
-**Reviewed:** 2026-08-29
+**Reviewed:** 2026-08-31
 
 ## Purpose
 
@@ -426,7 +426,7 @@ The existing indexes also do not exactly match the main conflict predicate, whic
 - Guest details are embedded because a guest entity does not exist.
 - No idempotency key protects repeated logical submissions.
 - No version field protects concurrent lifecycle changes.
-- On the documented schema baseline, no persistent notification status or stable ICS UID exists. The email-invitation feature branch introduces related changes and must update this model when merged.
+- `icsUid` provides a stable, optional, unique identifier for calendar invitations. Persistent notification delivery status is not yet modeled.
 
 ### Business rules enforced
 

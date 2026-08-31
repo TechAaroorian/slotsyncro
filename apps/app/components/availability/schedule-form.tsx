@@ -77,7 +77,6 @@ export interface DaySchedule {
 }
 
 export interface ScheduleFormProps {
-  userId?: string;
   initialData: {
     timeZone: string;
     schedule: DaySchedule[];
@@ -89,7 +88,6 @@ export interface ScheduleFormProps {
 }
 
 export function ScheduleForm({
-  userId: _userId,
   initialData,
   onSubmit,
 }: ScheduleFormProps) {

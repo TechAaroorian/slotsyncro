@@ -116,7 +116,7 @@ export default async function BookingsPage() {
                     <div className="flex items-start gap-2 pt-1">
                       <AlignLeft className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
                       <p className="text-muted-foreground italic line-clamp-2">
-                        "{booking.guestNotes}"
+                        &ldquo;{booking.guestNotes}&rdquo;
                       </p>
                     </div>
                   )}
