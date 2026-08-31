@@ -29,7 +29,7 @@ Auth.js uses JWT sessions with the Prisma adapter. Both providers use identity/l
 | --- | --- | --- | --- |
 | Auth.js session signing | `AUTH_SECRET` | Referenced implicitly by Auth.js and present by key in the local product environment | Current |
 | GitHub OAuth | `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET` | Provider is configured and the product UI calls `signIn("github")` | Current; live callback still requires provider-console verification |
-| Google OAuth | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | Provider is configured, but the custom sign-in UI exposes only GitHub and the local environment has no Google keys | Partial |
+| Google OAuth | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | Provider is configured and the product UI calls `signIn("google")`; the local environment still needs Google keys | Current in code; live callback still requires provider-console verification |
 | Database-backed identity | `DATABASE_URL` | Required eagerly by `@repo/db` and Prisma CLI configuration | Current |
 | Booking confirmation email | `RESEND_API_KEY` | Checked at delivery time; absence preserves booking success and returns failed email delivery | Current |
 
@@ -171,7 +171,7 @@ Refactor these actions when their user journey is next changed; avoid a broad me
 
 ## Known baseline limitations
 
-- Google OAuth is not exposed in the current custom sign-in UI and lacks local configuration evidence.
+- Google OAuth is exposed in the custom sign-in UI, but local credentials and a live callback smoke test are still required.
 - OAuth callback behavior still needs a manual smoke test in an environment with registered provider callbacks.
 - No committed Prisma migration history exists.
 - Public booking overlap protection is query-then-insert and is not concurrency-safe.
