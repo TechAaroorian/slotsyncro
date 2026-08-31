@@ -21,7 +21,7 @@ This inventory separates implemented behavior from proposals. It is not a market
 | GitHub OAuth authentication | Current | Implemented with Auth.js. First OAuth login also acts as account creation. |
 | Protected dashboard pages | Current | Availability, event types, and bookings verify the authenticated session. |
 | New-user onboarding | Proposed | Username, timezone, initial availability, and first scheduling action. |
-| Google OAuth authentication | Current | Implemented with Auth.js; identity scopes must remain separate from future Google Calendar permissions. |
+| Google OAuth authentication | Partial | The Auth.js provider is configured, but the custom sign-in UI and local environment currently expose only GitHub; identity scopes must remain separate from future Google Calendar permissions. |
 | Email magic-link login | Exploratory | A possible alternative for users without supported OAuth providers. |
 | Password authentication | Out of scope | Adds password storage, reset, verification, and abuse-prevention responsibilities without current product value. |
 | Personal workspace | Proposed | Created automatically for each user without exposing unnecessary organization UI. |
