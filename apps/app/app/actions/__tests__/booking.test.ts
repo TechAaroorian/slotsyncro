@@ -3,6 +3,16 @@ import { createBooking } from "../booking";
 import { db } from "@repo/db";
 import type { Booking, EventType } from "@prisma/client";
 
+const { mockEmailSend } = vi.hoisted(() => ({
+  mockEmailSend: vi.fn(),
+}));
+
+vi.mock("resend", () => ({
+  Resend: class MockResend {
+    emails = { send: mockEmailSend };
+  },
+}));
+
 vi.mock("@repo/db", () => ({
   db: {
     eventType: {
@@ -11,6 +21,9 @@ vi.mock("@repo/db", () => ({
     booking: {
       findFirst: vi.fn(),
       create: vi.fn(),
+    },
+    user: {
+      findUnique: vi.fn(),
     },
   },
 }));
@@ -22,6 +35,17 @@ vi.mock("next/cache", () => ({
 describe("createBooking Server Action", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    process.env.RESEND_API_KEY = "re_test_key";
+    vi.mocked(db.user.findUnique).mockResolvedValue({
+      id: "usr_host",
+      name: "Test Host",
+      username: "test-host",
+      email: "host@example.com",
+    } as never);
+    mockEmailSend.mockResolvedValue({
+      data: { id: "email_123" },
+      error: null,
+    });
   });
 
   const validPayload = {
@@ -62,6 +86,7 @@ describe("createBooking Server Action", () => {
       duration: 30,
       userId: "usr_host",
       isArchived: false,
+      title: "Discovery Call",
     } as unknown as EventType);
 
     vi.mocked(db.booking.findFirst).mockResolvedValue({
@@ -81,6 +106,7 @@ describe("createBooking Server Action", () => {
       duration: 30,
       userId: "usr_host",
       isArchived: false,
+      title: "Discovery Call",
     } as unknown as EventType);
 
     vi.mocked(db.booking.findFirst).mockResolvedValue(null);
@@ -92,6 +118,10 @@ describe("createBooking Server Action", () => {
     expect(response.success).toBe(true);
     if (response.success) {
       expect(response.bookingId).toBe("bk_new_789");
+      expect(response.emailDelivery).toEqual({
+        status: "SENT",
+        recipient: "alice@example.com",
+      });
     }
   });
 
@@ -102,6 +132,7 @@ describe("createBooking Server Action", () => {
       duration: 30,
       userId: "usr_host",
       isArchived: false,
+      title: "Discovery Call",
     } as unknown as EventType);
 
     // 2. Mock that the slot is completely free
@@ -135,6 +166,7 @@ describe("createBooking Server Action", () => {
       duration: 30,
       userId: "usr_host",
       isArchived: false,
+      title: "Discovery Call",
     } as unknown as EventType);
     vi.mocked(db.booking.findFirst).mockResolvedValue(null);
     vi.mocked(db.booking.create).mockResolvedValue({
@@ -158,5 +190,33 @@ describe("createBooking Server Action", () => {
         }),
       }),
     );
+  });
+
+  it("keeps the booking successful when confirmation email delivery fails", async () => {
+    vi.mocked(db.eventType.findUnique).mockResolvedValue({
+      id: "evt_123",
+      duration: 30,
+      userId: "usr_host",
+      isArchived: false,
+      title: "Discovery Call",
+    } as unknown as EventType);
+    vi.mocked(db.booking.findFirst).mockResolvedValue(null);
+    vi.mocked(db.booking.create).mockResolvedValue({
+      id: "bk_email_failed",
+    } as unknown as Booking);
+    mockEmailSend.mockResolvedValue({
+      data: null,
+      error: { message: "Provider unavailable" },
+    });
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const response = await createBooking(validPayload);
+
+    expect(response.success).toBe(true);
+    if (response.success) {
+      expect(response.bookingId).toBe("bk_email_failed");
+      expect(response.emailDelivery.status).toBe("FAILED");
+    }
+    consoleSpy.mockRestore();
   });
 });
