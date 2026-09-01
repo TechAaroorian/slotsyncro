@@ -38,6 +38,7 @@ Statements about current behavior should be verifiable in code. Proposed behavio
 | [System architecture](./system-architecture.md) | Modular runtime boundaries, request and transaction flows, durable work, integrations, security, and sequences | Proposed runtime design |
 | [Deployment architecture](./deployment-architecture.md) | Environments, deployable units, database, releases, secrets, observability, backups, and recovery | Proposed deployment design |
 | [Roadmap](./roadmap.md) | Vertical delivery milestones, dependencies, decision gates, and completion evidence | Proposed delivery plan |
+| [M0 baseline reconciliation](./baseline-m0.md) | Validation evidence, environment contracts, migration gaps, data-quality queries, and Server Action conventions | Current baseline |
 | [Content opportunities](./content-opportunities.md) | Reusable learning and publishing ideas discovered during development | Active backlog |
 
 ## Articles

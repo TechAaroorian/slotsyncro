@@ -770,7 +770,7 @@ Query plans and data volume should be measured before final index selection. For
 | `Booking` | `Meeting` + `DirectBooking` + participants + initial event | Backfill one meeting per booking; preserve legacy ID mapping |
 | `Booking.status` | `Meeting.status` | Map accepted/pending/cancelled through explicit migration policy |
 | `googleMeetLink` / general meeting URL branch fields | Meeting location or external integration reference | Classify URL/provider; retain unknown as custom URL |
-| `icsUid` from email feature branch | Stable calendar identity/external reference | Preserve existing UID during migration |
+| `Booking.icsUid` | Stable calendar identity/external reference | Preserve existing UID during migration |
 | `Poll` | `Poll` | Add workspace, lifecycle, access, duration, timezone, deadline, version |
 | `TimeSlot` | `PollCandidate` | Preserve IDs where practical; validate intervals/duplicates |
 | Repeated `Availability` vote rows | `PollParticipant` + `PollPreference` | Group by poll and participant identity heuristic; detect collisions |
@@ -803,9 +803,9 @@ Existing data must be scanned for overlaps before adding an exclusion/reservatio
 
 Changing from cascade to restrict can fail while orphaning assumptions exist in application flows. Delete actions must be changed before the constraint cutover.
 
-### Feature-branch divergence
+### Reconciled email baseline
 
-Email-invitation schema changes such as stable ICS identity and general meeting provider fields must be merged or reconciled before writing the final migration. Do not design migration from an outdated branch snapshot.
+Stable ICS identity and general meeting provider fields are present in the current schema. Preserve and map them when writing the final migration.
 
 ## Incremental migration phases
 

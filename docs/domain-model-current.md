@@ -2,7 +2,7 @@
 
 **Document status:** Current-state analysis  
 **Schema source:** `packages/db/prisma/schema.prisma` on the documentation branch  
-**Reviewed:** 2026-08-29
+**Reviewed:** 2026-08-31
 
 ## Purpose
 
@@ -376,7 +376,9 @@ Represents a guest reservation for one host and one event type.
 | `startTime` | Yes | Timestamp | Scheduled absolute start |
 | `endTime` | Yes | Timestamp | Scheduled absolute end |
 | `status` | Yes | Defaults `ACCEPTED` | `PENDING`, `ACCEPTED`, or `CANCELLED` |
-| `googleMeetLink` | No | None | Provider-specific meeting URL |
+| `meetingUrl` | No | None | Provider meeting or location URL |
+| `meetingProvider` | No | `MeetingProvider` enum | Optional provider classification |
+| `icsUid` | No | Unique when present | Stable calendar invitation identifier |
 
 ### Keys and indexes
 
@@ -422,11 +424,11 @@ The existing indexes also do not exactly match the main conflict predicate, whic
 
 - `status` is an enum but permitted transitions are not modeled.
 - `endTime > startTime` is not a database constraint.
-- `googleMeetLink` couples the booking model to one conferencing provider.
+- `meetingUrl` and `meetingProvider` are general provider fields, but provider lifecycle state is not modeled separately.
 - Guest details are embedded because a guest entity does not exist.
 - No idempotency key protects repeated logical submissions.
 - No version field protects concurrent lifecycle changes.
-- On the documented schema baseline, no persistent notification status or stable ICS UID exists. The email-invitation feature branch introduces related changes and must update this model when merged.
+- `icsUid` provides a stable, optional, unique identifier for calendar invitations. Persistent notification delivery status is not yet modeled.
 
 ### Business rules enforced
 
@@ -731,7 +733,7 @@ The proposed model must evaluate access patterns before normalizing.
 | `TimeSlot` | Generic name currently scoped to poll candidates | `PollCandidate` |
 | `responses` relation | Contains vote rows, not participant response aggregates | `votes` until response entity exists |
 | `Booking` | Could mean reservation request or final meeting | Requires domain decision |
-| `googleMeetLink` | Couples core record to one provider | General location/provider reference |
+| `meetingUrl` / `meetingProvider` | Provider details remain on the core booking record | Separate integration reference when provider lifecycle behavior is implemented |
 
 Renaming should follow accepted domain decisions and migrations, not happen only for stylistic consistency.
 

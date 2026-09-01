@@ -61,7 +61,6 @@ export default async function AvailabilityPage() {
   return (
     <div className="container max-w-5xl">
       <ScheduleForm
-        userId={user.id}
         initialData={{
           timeZone: user.timeZone || "UTC", // Corrected fallback
           schedule,

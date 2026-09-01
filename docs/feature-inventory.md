@@ -1,7 +1,7 @@
 # Feature Inventory
 
 **Document status:** Initial draft  
-**Last reviewed against repository:** 2026-08-29
+**Last reviewed against repository:** 2026-08-31
 
 This inventory separates implemented behavior from proposals. It is not a marketing feature list.
 
@@ -21,7 +21,7 @@ This inventory separates implemented behavior from proposals. It is not a market
 | GitHub OAuth authentication | Current | Implemented with Auth.js. First OAuth login also acts as account creation. |
 | Protected dashboard pages | Current | Availability, event types, and bookings verify the authenticated session. |
 | New-user onboarding | Proposed | Username, timezone, initial availability, and first scheduling action. |
-| Google OAuth authentication | Current | Implemented with Auth.js; identity scopes must remain separate from future Google Calendar permissions. |
+| Google OAuth authentication | Current | Implemented with Auth.js and exposed in the sign-in UI; deployment requires registered callback URLs and provider credentials. Identity scopes remain separate from future Google Calendar permissions. |
 | Email magic-link login | Exploratory | A possible alternative for users without supported OAuth providers. |
 | Password authentication | Out of scope | Adds password storage, reset, verification, and abuse-prevention responsibilities without current product value. |
 | Personal workspace | Proposed | Created automatically for each user without exposing unnecessary organization UI. |
@@ -48,10 +48,10 @@ This inventory separates implemented behavior from proposals. It is not a market
 
 | Capability | Status | Notes |
 | --- | --- | --- |
-| Guest confirmation email | Partial | Implemented with React Email and Resend on the email-invitation feature branch; pending baseline reconciliation. |
-| ICS attachment | Partial | Stable booking UID and attachment generation exist on the email-invitation feature branch; pending baseline reconciliation. |
-| Guest-timezone email formatting | Partial | Implemented on the email-invitation feature branch; pending baseline reconciliation. |
-| Separate booking and email outcomes | Partial | Implemented on the email-invitation feature branch; durable delivery state remains proposed. |
+| Guest confirmation email | Current | Implemented with React Email and Resend in the reconciled baseline. |
+| ICS attachment | Current | Stable booking UID and attachment generation are implemented in the reconciled baseline. |
+| Guest-timezone email formatting | Current | Confirmation times are formatted in the guest's submitted timezone. |
+| Separate booking and email outcomes | Current | Booking success is reported independently from the email result; durable delivery state remains proposed. |
 | Persisted notification status | Proposed | Needed for delivery history, retries, and operational visibility. |
 | Retry failed notification | Proposed | Must include authorization, idempotency, and abuse controls. |
 | Host notification | Proposed | Host should receive or configure booking notifications. |
