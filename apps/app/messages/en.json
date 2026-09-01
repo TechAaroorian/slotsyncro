@@ -3,6 +3,46 @@
     "title": "SlotSyncro 🗓️",
     "version": "v1.0"
   },
+  "Navigation": {
+    "dashboard": "Dashboard",
+    "eventTypes": "Event Types",
+    "availability": "Availability",
+    "bookings": "Bookings",
+    "createPoll": "Create Poll",
+    "accountActionsHint": "Account actions are available from your profile menu."
+  },
+  "Dashboard": {
+    "fallbackName": "there",
+    "greeting": "Welcome back, {name}",
+    "subtitle": "Choose a scheduling path or finish setting up direct booking.",
+    "summary": {
+      "title": "Scheduling overview",
+      "eventTypes": "Active event types",
+      "availabilityDays": "Availability days",
+      "upcomingBookings": "Upcoming bookings",
+      "polls": "Created polls"
+    },
+    "readiness": {
+      "title": "Direct scheduling readiness",
+      "description": "Complete these foundations before sharing an event link.",
+      "progress": "{completed}/2 complete",
+      "availability": "Set your weekly availability and timezone",
+      "eventType": "Create an active event type",
+      "complete": "Ready",
+      "incomplete": "Action needed",
+      "review": "Review",
+      "configure": "Configure"
+    },
+    "actions": {
+      "directScheduling": "Manage direct scheduling",
+      "createPoll": "Create a group poll"
+    },
+    "error": {
+      "title": "We couldn't load your dashboard",
+      "description": "Your scheduling data is safe. Try loading this section again.",
+      "retry": "Try again"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Universal group scheduling & real-time availability heatmap builder.",

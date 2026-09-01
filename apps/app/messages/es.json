@@ -3,6 +3,46 @@
     "title": "SlotSyncro 🗓️",
     "version": "v1.0"
   },
+  "Navigation": {
+    "dashboard": "Panel",
+    "eventTypes": "Tipos de evento",
+    "availability": "Disponibilidad",
+    "bookings": "Reservas",
+    "createPoll": "Crear encuesta",
+    "accountActionsHint": "Las acciones de cuenta están disponibles en el menú de perfil."
+  },
+  "Dashboard": {
+    "fallbackName": "amigo",
+    "greeting": "Bienvenido de nuevo, {name}",
+    "subtitle": "Elige una opción de programación o termina de configurar las reservas directas.",
+    "summary": {
+      "title": "Resumen de programación",
+      "eventTypes": "Tipos de evento activos",
+      "availabilityDays": "Días disponibles",
+      "upcomingBookings": "Próximas reservas",
+      "polls": "Encuestas creadas"
+    },
+    "readiness": {
+      "title": "Preparación para reservas directas",
+      "description": "Completa estos pasos antes de compartir un enlace de evento.",
+      "progress": "{completed}/2 completados",
+      "availability": "Configura tu disponibilidad semanal y zona horaria",
+      "eventType": "Crea un tipo de evento activo",
+      "complete": "Listo",
+      "incomplete": "Acción necesaria",
+      "review": "Revisar",
+      "configure": "Configurar"
+    },
+    "actions": {
+      "directScheduling": "Gestionar reservas directas",
+      "createPoll": "Crear una encuesta grupal"
+    },
+    "error": {
+      "title": "No pudimos cargar tu panel",
+      "description": "Tus datos están seguros. Intenta cargar esta sección de nuevo.",
+      "retry": "Intentar de nuevo"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Programación de reuniones grupales y creador de mapas de calor en tiempo real.",

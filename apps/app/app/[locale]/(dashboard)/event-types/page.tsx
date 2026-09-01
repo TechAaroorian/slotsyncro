@@ -5,11 +5,14 @@ import { db } from "@repo/db";
 import { CreateEventTypeDialog } from "@/components/event-types/create-event-type-dialog";
 import { EventTypeCard } from "@/components/event-types/event-type-card";
 
-export default async function EventTypesPage() {
+export default async function EventTypesPage({
+  params,
+}: PageProps<"/[locale]/event-types">) {
+  const { locale } = await params;
   const session = await auth();
 
   if (!session?.user?.id) {
-    redirect("/login");
+    redirect(`/${locale}`);
   }
 
   const user = await db.user.findUnique({
@@ -24,7 +27,7 @@ export default async function EventTypesPage() {
   });
 
   if (!user) {
-    redirect("/login");
+    redirect(`/${locale}`);
   }
 
   const username = user.username || user.id;

@@ -12,11 +12,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { CalendarClock, User, Mail, AlignLeft } from "lucide-react";
 
-export default async function BookingsPage() {
+export default async function BookingsPage({
+  params,
+}: PageProps<"/[locale]/bookings">) {
+  const { locale } = await params;
   const session = await auth();
 
   if (!session?.user?.id) {
-    redirect("/login");
+    redirect(`/${locale}`);
   }
 
   const todayStart = startOfDay(new Date());

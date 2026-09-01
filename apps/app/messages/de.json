@@ -3,6 +3,46 @@
     "title": "SlotSyncro 🗓️",
     "version": "v1.0"
   },
+  "Navigation": {
+    "dashboard": "Übersicht",
+    "eventTypes": "Ereignistypen",
+    "availability": "Verfügbarkeit",
+    "bookings": "Buchungen",
+    "createPoll": "Umfrage erstellen",
+    "accountActionsHint": "Kontoaktionen findest du im Profilmenü."
+  },
+  "Dashboard": {
+    "fallbackName": "du",
+    "greeting": "Willkommen zurück, {name}",
+    "subtitle": "Wähle einen Terminweg oder schließe die Einrichtung direkter Buchungen ab.",
+    "summary": {
+      "title": "Terminübersicht",
+      "eventTypes": "Aktive Ereignistypen",
+      "availabilityDays": "Verfügbare Tage",
+      "upcomingBookings": "Bevorstehende Buchungen",
+      "polls": "Erstellte Umfragen"
+    },
+    "readiness": {
+      "title": "Bereitschaft für direkte Buchungen",
+      "description": "Schließe diese Grundlagen ab, bevor du einen Ereignislink teilst.",
+      "progress": "{completed}/2 abgeschlossen",
+      "availability": "Lege wöchentliche Verfügbarkeit und Zeitzone fest",
+      "eventType": "Erstelle einen aktiven Ereignistyp",
+      "complete": "Bereit",
+      "incomplete": "Aktion erforderlich",
+      "review": "Prüfen",
+      "configure": "Einrichten"
+    },
+    "actions": {
+      "directScheduling": "Direkte Buchungen verwalten",
+      "createPoll": "Gruppenumfrage erstellen"
+    },
+    "error": {
+      "title": "Deine Übersicht konnte nicht geladen werden",
+      "description": "Deine Termindaten sind sicher. Lade diesen Bereich erneut.",
+      "retry": "Erneut versuchen"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Universelle Gruppenterminplanung & Echtzeit-Verfügbarkeitsanalyse.",

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import { SignIn } from "@/components/auth-components";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { localizedPath } from "@/lib/navigation";
 
 export default async function Home() {
   const t = await getTranslations("Home");
+  const locale = await getLocale();
   const session = await auth();
 
   return (
@@ -31,7 +33,7 @@ export default async function Home() {
             </div>
 
             <Link
-              href="/create-poll"
+              href={localizedPath(locale, "/create-poll")}
               className="block w-full text-center py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 text-white text-xs font-bold rounded-lg transition-all"
             >
               {t("createPoll")}

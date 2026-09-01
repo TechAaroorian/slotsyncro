@@ -16,11 +16,14 @@ const DEFAULT_DAYS: DayOfWeek[] = [
 
 const ALL_DAYS: DayOfWeek[] = Object.values(DayOfWeek);
 
-export default async function AvailabilityPage() {
+export default async function AvailabilityPage({
+  params,
+}: PageProps<"/[locale]/availability">) {
+  const { locale } = await params;
   const session = await auth();
 
   if (!session?.user?.id) {
-    redirect("/login");
+    redirect(`/${locale}`);
   }
 
   const user = await db.user.findUnique({
@@ -31,7 +34,7 @@ export default async function AvailabilityPage() {
   });
 
   if (!user) {
-    redirect("/login");
+    redirect(`/${locale}`);
   }
 
   // Transform database availability to match ScheduleForm's initialData format
