@@ -43,6 +43,21 @@
       "retry": "Intentar de nuevo"
     }
   },
+  "Bookings": {
+    "title": "Próximas reservas",
+    "description": "Los horarios se muestran en tu zona horaria de anfitrión guardada.",
+    "duration": "{minutes} minutos",
+    "status": {
+      "accepted": "Aceptada",
+      "cancelled": "Cancelada",
+      "pending": "Pendiente"
+    },
+    "empty": {
+      "title": "No hay próximas reuniones",
+      "description": "Cuando los invitados reserven contigo, sus reuniones aparecerán aquí. Crea o comparte un enlace de evento para comenzar.",
+      "action": "Gestionar tipos de evento"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Programación de reuniones grupales y creador de mapas de calor en tiempo real.",

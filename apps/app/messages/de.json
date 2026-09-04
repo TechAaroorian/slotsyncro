@@ -43,6 +43,21 @@
       "retry": "Erneut versuchen"
     }
   },
+  "Bookings": {
+    "title": "Bevorstehende Buchungen",
+    "description": "Termine werden in deiner gespeicherten Gastgeber-Zeitzone angezeigt.",
+    "duration": "{minutes} Minuten",
+    "status": {
+      "accepted": "Bestätigt",
+      "cancelled": "Abgesagt",
+      "pending": "Ausstehend"
+    },
+    "empty": {
+      "title": "Keine bevorstehenden Termine",
+      "description": "Sobald Gäste einen Termin bei dir buchen, erscheint er hier. Erstelle oder teile einen Ereignislink, um loszulegen.",
+      "action": "Ereignistypen verwalten"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Universelle Gruppenterminplanung & Echtzeit-Verfügbarkeitsanalyse.",

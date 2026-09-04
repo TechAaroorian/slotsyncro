@@ -43,6 +43,21 @@
       "retry": "Try again"
     }
   },
+  "Bookings": {
+    "title": "Upcoming Bookings",
+    "description": "Meeting times are shown in your saved host timezone.",
+    "duration": "{minutes} minutes",
+    "status": {
+      "accepted": "Accepted",
+      "cancelled": "Cancelled",
+      "pending": "Pending"
+    },
+    "empty": {
+      "title": "No upcoming meetings",
+      "description": "When guests schedule time with you, their bookings will appear here. Create or share an event link to get started.",
+      "action": "Manage event types"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Universal group scheduling & real-time availability heatmap builder.",
