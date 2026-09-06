@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { CreatePollForm } from "@/components/create-poll-form";
+import axe from "axe-core";
 
 vi.mock("@/app/actions/poll", () => ({
   createPoll: vi.fn(),
@@ -13,6 +14,18 @@ function selectedTimes() {
 }
 
 describe("CreatePollForm", () => {
+  it("has no detectable component-level accessibility violations", async () => {
+    const { container } = render(<CreatePollForm locale="en" />);
+    const results = await axe.run(container, {
+      rules: {
+        "color-contrast": { enabled: false },
+        region: { enabled: false },
+      },
+    });
+
+    expect(results.violations).toEqual([]);
+  });
+
   it("toggles quick times into the submitted values", () => {
     render(<CreatePollForm locale="en" />);
 

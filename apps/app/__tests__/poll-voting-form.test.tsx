@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { submitPollVotes } from "@/app/actions/poll";
 import { PollVotingForm } from "@/components/poll/poll-voting-form";
+import axe from "axe-core";
 
 vi.mock("@/app/actions/poll", () => ({
   submitPollVotes: vi.fn(),
@@ -12,6 +13,20 @@ const slots = [{ id: "slot-1", formattedTime: "Monday at 10:00 AM" }];
 describe("PollVotingForm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("has no detectable component-level accessibility violations", async () => {
+    const { container } = render(
+      <PollVotingForm pollId="poll-1" slots={slots} />,
+    );
+    const results = await axe.run(container, {
+      rules: {
+        "color-contrast": { enabled: false },
+        region: { enabled: false },
+      },
+    });
+
+    expect(results.violations).toEqual([]);
   });
 
   it("announces successful vote submission", async () => {
