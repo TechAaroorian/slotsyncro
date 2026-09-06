@@ -209,8 +209,8 @@ export async function createBooking(
       }
     }
 
-    revalidatePath("/[username]/[slug]", "page");
-    revalidatePath("/(dashboard)/bookings", "page");
+    revalidatePath("/[locale]/[username]/[slug]", "page");
+    revalidatePath("/[locale]/bookings", "page");
 
     return {
       success: true,

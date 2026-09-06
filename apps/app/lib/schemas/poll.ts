@@ -17,8 +17,14 @@ export const CreatePollSchema = z.object({
     .string()
     .min(1, { message: "Please select a valid meeting date." }),
   startHours: z
-    .array(z.string())
-    .min(1, { message: "Please select at least one time slot." }),
+    .array(
+      z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, {
+        message: "Each time slot must use the HH:mm format.",
+      }),
+    )
+    .min(1, { message: "Please select at least one time slot." })
+    .max(24, { message: "A poll can contain at most 24 time slots." })
+    .transform((times) => [...new Set(times)].sort()),
 });
 
 // TypeScript type inferred directly from the Zod Schema

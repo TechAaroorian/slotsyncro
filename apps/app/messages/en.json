@@ -75,6 +75,22 @@
     "descPlaceholder": "Add meeting context...",
     "dateLabel": "Meeting Date *",
     "slotsLabel": "Select Available Time Slots (1-hour slots) *",
+    "slotsHint": "Use a quick time or add an exact time. Select at least one.",
+    "customTimeLabel": "Specific time",
+    "addTime": "Add time",
+    "selectedTimesLabel": "Selected times",
+    "removeTime": "Remove {time}",
+    "howItWorks": {
+      "title": "How your poll works",
+      "description": "Create one link that helps your group find the best meeting time.",
+      "steps": {
+        "choose": { "title": "Choose possible times", "description": "Add the times that work for you using quick picks or exact times." },
+        "share": { "title": "Share the poll", "description": "Send the generated link to everyone who should respond." },
+        "respond": { "title": "Collect preferences", "description": "Participants mark each time as yes, if needed, or no." },
+        "review": { "title": "Review the result", "description": "Use the availability heatmap to identify the strongest option." }
+      },
+      "accountNote": "Participants can respond without creating an account. Signed-in participants are identified automatically."
+    },
     "submitBtn": "Create Poll & Share Link 🚀",
     "submitting": "Creating Poll..."
   },

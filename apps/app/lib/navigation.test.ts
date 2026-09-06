@@ -10,6 +10,10 @@ describe("localizedPath", () => {
     expect(localizedPath("en", "/")).toBe("/en");
     expect(localizedPath("es", "//bookings//")).toBe("/es/bookings");
   });
+
+  it("falls back to the default locale for an unsupported locale", () => {
+    expect(localizedPath("unsupported", "/dashboard")).toBe("/en/dashboard");
+  });
 });
 
 describe("isNavigationPathActive", () => {

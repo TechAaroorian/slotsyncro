@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { submitPollVotes, createPoll } from "../poll";
 import { db } from "@repo/db";
 import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 // 1. Mock Auth session
 vi.mock("@/auth", () => ({
@@ -50,7 +51,7 @@ describe("actions/poll.ts", () => {
       const formData = new FormData();
       formData.append("title", ""); // Invalid: title empty
 
-      const result = await createPoll({ errors: {} }, formData);
+      const result = await createPoll("en", { errors: {} }, formData);
 
       expect(result?.errors).toBeDefined();
       expect(db.poll.create).not.toHaveBeenCalled();
@@ -65,7 +66,7 @@ describe("actions/poll.ts", () => {
       formData.append("startHours", "09:00");
       formData.append("startHours", "10:00");
 
-      await createPoll({ errors: {} }, formData);
+      await createPoll("es", { errors: {} }, formData);
 
       expect(db.poll.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
@@ -74,21 +75,32 @@ describe("actions/poll.ts", () => {
           hostId: "user-host-123",
         }),
       });
+      expect(redirect).toHaveBeenCalledWith(
+        "/es/poll/weekly-standup-xyz12",
+      );
     });
 
-    it("should handle empty title fallback and explicit time format (e.g. HH:mm:ss) to cover slot formatting branches", async () => {
+    it("should use the poll slug fallback and deduplicate valid times", async () => {
       const formData = new FormData();
       // Using characters that get completely stripped by regex to force baseSlug fallback ("poll")
       formData.append("title", "!!!");
       formData.append("slotDate", "2026-08-10");
-      // Pass full HH:mm:ss format (length != 5) to hit the ternary else branch (line 51)
-      formData.append("startHours", "09:00:00");
+      formData.append("startHours", "09:00");
+      formData.append("startHours", "09:00");
 
-      await createPoll({ errors: {} }, formData);
+      await createPoll("en", { errors: {} }, formData);
 
       expect(db.poll.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
           slug: expect.stringMatching(/^poll-/),
+          slots: {
+            create: [
+              expect.objectContaining({
+                startTime: expect.any(Date),
+                endTime: expect.any(Date),
+              }),
+            ],
+          },
         }),
       });
     });
@@ -116,7 +128,7 @@ describe("actions/poll.ts", () => {
       const formData = new FormData();
       formData.append("title", "Unauthorized Poll");
 
-      const result = await createPoll({ errors: {} }, formData);
+      const result = await createPoll("en", { errors: {} }, formData);
 
       expect(result.errors?.formError).toContain(
         "Unauthorized: You must be signed in to create a poll.",
@@ -139,7 +151,7 @@ describe("actions/poll.ts", () => {
       formData.append("slotDate", "2026-08-10");
       formData.append("startHours", "09:00");
 
-      const result = await createPoll({ errors: {} }, formData);
+      const result = await createPoll("en", { errors: {} }, formData);
 
       expect(result.errors?.formError).toContain(
         "Database error: Failed to create poll. Please try again.",

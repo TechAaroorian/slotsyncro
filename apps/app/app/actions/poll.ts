@@ -10,8 +10,10 @@ import {
   type SubmitPollVotesInput,
 } from "@/lib/schemas/poll";
 import { redirect } from "next/navigation";
+import { localizedPath } from "@/lib/navigation";
 
 export async function createPoll(
+  locale: string,
   prevState: PollFormState,
   formData: FormData,
 ): Promise<PollFormState> {
@@ -60,9 +62,7 @@ export async function createPoll(
   try {
     // Construct UTC slot datetimes safely
     const timeSlotsData = startHours.map((time) => {
-      // Ensure time string format is HH:mm (e.g., "09:00")
-      const formattedTime = time.length === 5 ? `${time}:00` : time;
-      const startDateTime = new Date(`${slotDate}T${formattedTime}`);
+      const startDateTime = new Date(`${slotDate}T${time}:00`);
       const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
 
       return {
@@ -94,7 +94,7 @@ export async function createPoll(
   }
 
   // Redirect host after successful creation
-  redirect(`/poll/${createdSlug}`);
+  redirect(localizedPath(locale, `/poll/${createdSlug}`));
 }
 
 export type SubmitPollVotesResult =

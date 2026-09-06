@@ -75,6 +75,22 @@
     "descPlaceholder": "Kontext zum Meeting hinzufügen...",
     "dateLabel": "Besprechungsdatum *",
     "slotsLabel": "Verfügbare Zeitfenster auswählen (1-Stunden-Slots) *",
+    "slotsHint": "Nutze eine Schnellzeit oder füge eine genaue Uhrzeit hinzu. Wähle mindestens eine aus.",
+    "customTimeLabel": "Bestimmte Uhrzeit",
+    "addTime": "Uhrzeit hinzufügen",
+    "selectedTimesLabel": "Ausgewählte Zeiten",
+    "removeTime": "{time} entfernen",
+    "howItWorks": {
+      "title": "So funktioniert deine Umfrage",
+      "description": "Erstelle einen Link, mit dem deine Gruppe die beste Zeit findet.",
+      "steps": {
+        "choose": { "title": "Mögliche Zeiten wählen", "description": "Füge Schnellzeiten hinzu oder gib genaue Uhrzeiten ein." },
+        "share": { "title": "Umfrage teilen", "description": "Sende den erstellten Link an alle Teilnehmenden." },
+        "respond": { "title": "Präferenzen sammeln", "description": "Teilnehmende markieren jede Zeit mit Ja, Bei Bedarf oder Nein." },
+        "review": { "title": "Ergebnis prüfen", "description": "Nutze die Verfügbarkeitsübersicht, um die beste Option zu erkennen." }
+      },
+      "accountNote": "Teilnehmende können ohne Konto antworten. Angemeldete Personen werden automatisch erkannt."
+    },
     "submitBtn": "Umfrage erstellen & Link teilen 🚀",
     "submitting": "Umfrage wird erstellt..."
   },

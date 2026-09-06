@@ -62,7 +62,6 @@ export async function updateAvailability(input: UpdateAvailabilityInput) {
     });
   }
 
-  revalidatePath("/availability");
   revalidatePath("/[locale]/availability", "page");
 
   return { success: true };

@@ -75,6 +75,22 @@
     "descPlaceholder": "Añadir contexto de la reunión...",
     "dateLabel": "Fecha de la reunión *",
     "slotsLabel": "Seleccione franjas horarias disponibles (1 hora) *",
+    "slotsHint": "Usa una hora rápida o añade una hora exacta. Selecciona al menos una.",
+    "customTimeLabel": "Hora específica",
+    "addTime": "Añadir hora",
+    "selectedTimesLabel": "Horas seleccionadas",
+    "removeTime": "Eliminar {time}",
+    "howItWorks": {
+      "title": "Cómo funciona tu encuesta",
+      "description": "Crea un enlace para ayudar al grupo a encontrar la mejor hora.",
+      "steps": {
+        "choose": { "title": "Elige horarios posibles", "description": "Añade horarios rápidos o introduce horas exactas." },
+        "share": { "title": "Comparte la encuesta", "description": "Envía el enlace generado a todas las personas que deben responder." },
+        "respond": { "title": "Recopila preferencias", "description": "Los participantes marcan cada hora como sí, si es necesario o no." },
+        "review": { "title": "Revisa el resultado", "description": "Usa el mapa de disponibilidad para identificar la mejor opción." }
+      },
+      "accountNote": "Los participantes pueden responder sin crear una cuenta. Los usuarios conectados se identifican automáticamente."
+    },
     "submitBtn": "Crear encuesta y compartir enlace 🚀",
     "submitting": "Creando encuesta..."
   },
