@@ -4,6 +4,8 @@
     "version": "v1.0"
   },
   "Navigation": {
+    "menu": "Menü",
+    "toggleMenu": "Navigationsmenü öffnen oder schließen",
     "dashboard": "Übersicht",
     "eventTypes": "Ereignistypen",
     "availability": "Verfügbarkeit",
@@ -94,9 +96,13 @@
     "namePlaceholder": "z. B. Max Mustermann",
     "emailOptional": "E-Mail (Optional)",
     "emailPlaceholder": "max@beispiel.de",
+    "votingAs": "Abstimmung als {identity}. Du kannst diese Angaben für diese Antwort bearbeiten.",
+    "signedInParticipant": "dein angemeldetes Konto",
     "slotAvailability": "Deine Verfügbarkeit pro Zeit-Slot",
     "nameRequiredError": "Bitte gib deinen Namen ein, um abzustimmen.",
+    "invalidSubmissionError": "Prüfe deine Angaben und Verfügbarkeiten und versuche es erneut.",
     "submitError": "Fehler beim Senden der Stimmen. Bitte versuche es erneut.",
+    "successMessage": "Deine Verfügbarkeit wurde erfolgreich gespeichert.",
     "submitting": "Stimmen werden gesendet...",
     "submit": "Verfügbarkeit Absenden",
     "status": {

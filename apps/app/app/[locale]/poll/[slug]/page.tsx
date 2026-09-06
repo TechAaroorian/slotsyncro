@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { db } from "@repo/db";
 import { HeatmapGrid } from "@/components/poll/heatmap-grid";
 import { PollVotingForm } from "@/components/poll/poll-voting-form";
+import { auth } from "@/auth";
 
 interface PollPageProps {
   params: Promise<{
@@ -17,28 +18,31 @@ export default async function PollPage({ params }: PollPageProps) {
   const tHeatmap = await getTranslations({ locale, namespace: "PollHeatmap" });
   const tVoting = await getTranslations({ locale, namespace: "PollVoting" });
 
-  // Fetch poll, time slots, host details, and all existing votes
-  const poll = await db.poll.findUnique({
-    where: { slug },
-    include: {
-      host: {
-        select: {
-          name: true,
-          image: true,
-          username: true,
+  // Fetch the public poll and optional viewer identity concurrently.
+  const [poll, session] = await Promise.all([
+    db.poll.findUnique({
+      where: { slug },
+      include: {
+        host: {
+          select: {
+            name: true,
+            image: true,
+            username: true,
+          },
         },
+        slots: {
+          orderBy: {
+            startTime: "asc",
+          },
+          include: {
+            availability: true,
+          },
+        },
+        responses: true,
       },
-      slots: {
-        orderBy: {
-          startTime: "asc",
-        },
-        include: {
-          availability: true,
-        },
-      },
-      responses: true,
-    },
-  });
+    }),
+    auth(),
+  ]);
 
   if (!poll) {
     notFound();
@@ -116,7 +120,18 @@ export default async function PollPage({ params }: PollPageProps) {
           <p className="text-sm text-muted-foreground">{tVoting("subtitle")}</p>
         </div>
 
-        <PollVotingForm pollId={poll.id} slots={votingSlots} />
+        <PollVotingForm
+          pollId={poll.id}
+          slots={votingSlots}
+          initialParticipant={
+            session?.user
+              ? {
+                  name: session.user.name ?? "",
+                  email: session.user.email ?? "",
+                }
+              : undefined
+          }
+        />
       </div>
     </div>
   );

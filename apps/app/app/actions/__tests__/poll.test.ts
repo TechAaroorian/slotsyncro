@@ -158,7 +158,7 @@ describe("actions/poll.ts", () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe("Participant name is required");
+      expect(result).toEqual({ success: false, error: "INVALID_SUBMISSION" });
     });
 
     it("should execute database transaction for valid vote submission", async () => {
@@ -189,7 +189,7 @@ describe("actions/poll.ts", () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe("Database transaction failed");
+      expect(result).toEqual({ success: false, error: "DATABASE_ERROR" });
       consoleSpy.mockRestore();
     });
   });

@@ -4,6 +4,8 @@
     "version": "v1.0"
   },
   "Navigation": {
+    "menu": "Menú",
+    "toggleMenu": "Abrir o cerrar el menú de navegación",
     "dashboard": "Panel",
     "eventTypes": "Tipos de evento",
     "availability": "Disponibilidad",
@@ -94,9 +96,13 @@
     "namePlaceholder": "ej. Alejandro Gómez",
     "emailOptional": "Correo Electrónico (Opcional)",
     "emailPlaceholder": "alejandro@ejemplo.com",
+    "votingAs": "Votando como {identity}. Puedes editar estos datos para esta respuesta.",
+    "signedInParticipant": "tu cuenta conectada",
     "slotAvailability": "Tu Disponibilidad por Franja Horaria",
     "nameRequiredError": "Por favor, introduce tu nombre para enviar los votos.",
+    "invalidSubmissionError": "Revisa tus datos y opciones de disponibilidad e inténtalo de nuevo.",
     "submitError": "Error al enviar los votos. Inténtalo de nuevo.",
+    "successMessage": "Tu disponibilidad se guardó correctamente.",
     "submitting": "Enviando Votos...",
     "submit": "Enviar Disponibilidad",
     "status": {

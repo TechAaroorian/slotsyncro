@@ -19,6 +19,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {
   isNavigationPathActive,
@@ -37,6 +38,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations("Navigation");
+  const { setOpenMobile } = useSidebar();
 
   return (
     <Sidebar className="pt-16 md:pt-16">
@@ -48,8 +50,14 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.key}>
                   <SidebarMenuButton
                     isActive={isNavigationPathActive(pathname, item.path)}
+                    aria-current={isNavigationPathActive(pathname, item.path) ? "page" : undefined}
                     className="px-3 py-5 text-[15px]"
-                    render={<Link href={localizedPath(locale, item.path)} />}
+                    render={
+                      <Link
+                        href={localizedPath(locale, item.path)}
+                        onNavigate={() => setOpenMobile(false)}
+                      />
+                    }
                   >
                     <item.icon className="h-4 w-4" />
                     <span>{t(item.key)}</span>

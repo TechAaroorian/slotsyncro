@@ -4,6 +4,8 @@
     "version": "v1.0"
   },
   "Navigation": {
+    "menu": "Menu",
+    "toggleMenu": "Toggle navigation menu",
     "dashboard": "Dashboard",
     "eventTypes": "Event Types",
     "availability": "Availability",
@@ -94,9 +96,13 @@
     "namePlaceholder": "e.g. Alex Johnson",
     "emailOptional": "Email (Optional)",
     "emailPlaceholder": "alex@example.com",
+    "votingAs": "Voting as {identity}. You can edit these details for this response.",
+    "signedInParticipant": "your signed-in account",
     "slotAvailability": "Your Availability per Slot",
     "nameRequiredError": "Please enter your name to submit votes.",
+    "invalidSubmissionError": "Check your details and availability choices, then try again.",
     "submitError": "Failed to submit votes. Please try again.",
+    "successMessage": "Your availability was saved successfully.",
     "submitting": "Submitting Votes...",
     "submit": "Submit Availability",
     "status": {

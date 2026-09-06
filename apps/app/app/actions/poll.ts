@@ -2,8 +2,13 @@
 "use server";
 
 import { auth } from "@/auth";
-import { db, AvailabilityStatus } from "@repo/db";
-import { CreatePollSchema, PollFormState } from "@/lib/schemas/poll";
+import { db } from "@repo/db";
+import {
+  CreatePollSchema,
+  PollFormState,
+  SubmitPollVotesSchema,
+  type SubmitPollVotesInput,
+} from "@/lib/schemas/poll";
 import { redirect } from "next/navigation";
 
 export async function createPoll(
@@ -92,23 +97,23 @@ export async function createPoll(
   redirect(`/poll/${createdSlug}`);
 }
 
-export interface VoteSubmission {
-  slotId: string;
-  status: AvailabilityStatus;
-}
+export type SubmitPollVotesResult =
+  | { success: true }
+  | { success: false; error: "INVALID_SUBMISSION" | "DATABASE_ERROR" };
 
-export async function submitPollVotes(data: {
-  pollId: string;
-  participantName: string;
-  participantEmail?: string;
-  votes: VoteSubmission[];
-}) {
-  const { pollId, participantName, participantEmail, votes } = data;
-  const normalizedName = participantName.trim();
+export async function submitPollVotes(
+  data: SubmitPollVotesInput,
+): Promise<SubmitPollVotesResult> {
+  const session = await auth();
+  const validatedFields = SubmitPollVotesSchema.safeParse(data);
 
-  if (!normalizedName) {
-    return { success: false, error: "Participant name is required" };
+  if (!validatedFields.success) {
+    return { success: false, error: "INVALID_SUBMISSION" };
   }
+
+  const { pollId, participantName, participantEmail, votes } =
+    validatedFields.data;
+  const userId = session?.user?.id ?? null;
 
   try {
     await db.$transaction(async (tx) => {
@@ -116,10 +121,26 @@ export async function submitPollVotes(data: {
       await tx.availability.deleteMany({
         where: {
           pollId,
-          participantName: {
-            equals: normalizedName,
-            mode: "insensitive", // Handles case differences like "Alex" vs "alex"
-          },
+          ...(userId
+            ? {
+                OR: [
+                  { userId },
+                  {
+                    userId: null,
+                    participantName: {
+                      equals: participantName,
+                      mode: "insensitive" as const,
+                    },
+                  },
+                ],
+              }
+            : {
+                userId: null,
+                participantName: {
+                  equals: participantName,
+                  mode: "insensitive" as const,
+                },
+              }),
         },
       });
 
@@ -128,8 +149,9 @@ export async function submitPollVotes(data: {
         data: votes.map((vote) => ({
           pollId,
           timeSlotId: vote.slotId,
-          participantName: normalizedName,
+          participantName,
           participantEmail: participantEmail?.trim() || null,
+          userId,
           status: vote.status,
         })),
       });
@@ -138,6 +160,6 @@ export async function submitPollVotes(data: {
     return { success: true };
   } catch (error) {
     console.error("Failed to submit poll votes:", error);
-    return { success: false, error: "Database transaction failed" };
+    return { success: false, error: "DATABASE_ERROR" };
   }
 }

@@ -24,6 +24,26 @@ export const CreatePollSchema = z.object({
 // TypeScript type inferred directly from the Zod Schema
 export type CreatePollInput = z.infer<typeof CreatePollSchema>;
 
+export const SubmitPollVotesSchema = z.object({
+  pollId: z.string().trim().min(1),
+  participantName: z.string().trim().min(1).max(100),
+  participantEmail: z.preprocess(
+    (value) =>
+      typeof value === "string" && value.trim() === "" ? undefined : value,
+    z.string().trim().email().optional(),
+  ),
+  votes: z
+    .array(
+      z.object({
+        slotId: z.string().trim().min(1),
+        status: z.enum(["YES", "IF_NEEDED", "NO"]),
+      }),
+    )
+    .min(1),
+});
+
+export type SubmitPollVotesInput = z.infer<typeof SubmitPollVotesSchema>;
+
 export type PollFormState = {
   errors?: {
     title?: string[];
