@@ -63,7 +63,6 @@ export async function createEventType(input: EventTypeFormValues) {
     });
 
     // 4. Revalidate route caches
-    revalidatePath("/event-types");
     revalidatePath("/[locale]/event-types", "page");
 
     return { success: true, data: eventType };
@@ -94,7 +93,6 @@ export async function toggleEventType(id: string, isActive: boolean) {
       },
     });
 
-    revalidatePath("/event-types");
     revalidatePath("/[locale]/event-types", "page");
 
     return { success: true };
@@ -123,7 +121,6 @@ export async function deleteEventType(id: string) {
       },
     });
 
-    revalidatePath("/event-types");
     revalidatePath("/[locale]/event-types", "page");
   } catch (error) {
     console.error("Error deleting event type:", error);

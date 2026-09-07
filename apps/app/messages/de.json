@@ -3,6 +3,63 @@
     "title": "SlotSyncro 🗓️",
     "version": "v1.0"
   },
+  "Navigation": {
+    "menu": "Menü",
+    "toggleMenu": "Navigationsmenü öffnen oder schließen",
+    "dashboard": "Übersicht",
+    "eventTypes": "Ereignistypen",
+    "availability": "Verfügbarkeit",
+    "bookings": "Buchungen",
+    "createPoll": "Umfrage erstellen",
+    "accountActionsHint": "Kontoaktionen findest du im Profilmenü."
+  },
+  "Dashboard": {
+    "fallbackName": "du",
+    "greeting": "Willkommen zurück, {name}",
+    "subtitle": "Wähle einen Terminweg oder schließe die Einrichtung direkter Buchungen ab.",
+    "summary": {
+      "title": "Terminübersicht",
+      "eventTypes": "Aktive Ereignistypen",
+      "availabilityDays": "Verfügbare Tage",
+      "upcomingBookings": "Bevorstehende Buchungen",
+      "polls": "Erstellte Umfragen"
+    },
+    "readiness": {
+      "title": "Bereitschaft für direkte Buchungen",
+      "description": "Schließe diese Grundlagen ab, bevor du einen Ereignislink teilst.",
+      "progress": "{completed}/2 abgeschlossen",
+      "availability": "Lege wöchentliche Verfügbarkeit und Zeitzone fest",
+      "eventType": "Erstelle einen aktiven Ereignistyp",
+      "complete": "Bereit",
+      "incomplete": "Aktion erforderlich",
+      "review": "Prüfen",
+      "configure": "Einrichten"
+    },
+    "actions": {
+      "directScheduling": "Direkte Buchungen verwalten",
+      "createPoll": "Gruppenumfrage erstellen"
+    },
+    "error": {
+      "title": "Deine Übersicht konnte nicht geladen werden",
+      "description": "Deine Termindaten sind sicher. Lade diesen Bereich erneut.",
+      "retry": "Erneut versuchen"
+    }
+  },
+  "Bookings": {
+    "title": "Bevorstehende Buchungen",
+    "description": "Termine werden in deiner gespeicherten Gastgeber-Zeitzone angezeigt.",
+    "duration": "{minutes} Minuten",
+    "status": {
+      "accepted": "Bestätigt",
+      "cancelled": "Abgesagt",
+      "pending": "Ausstehend"
+    },
+    "empty": {
+      "title": "Keine bevorstehenden Termine",
+      "description": "Sobald Gäste einen Termin bei dir buchen, erscheint er hier. Erstelle oder teile einen Ereignislink, um loszulegen.",
+      "action": "Ereignistypen verwalten"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Universelle Gruppenterminplanung & Echtzeit-Verfügbarkeitsanalyse.",
@@ -18,6 +75,22 @@
     "descPlaceholder": "Kontext zum Meeting hinzufügen...",
     "dateLabel": "Besprechungsdatum *",
     "slotsLabel": "Verfügbare Zeitfenster auswählen (1-Stunden-Slots) *",
+    "slotsHint": "Nutze eine Schnellzeit oder füge eine genaue Uhrzeit hinzu. Wähle mindestens eine aus.",
+    "customTimeLabel": "Bestimmte Uhrzeit",
+    "addTime": "Uhrzeit hinzufügen",
+    "selectedTimesLabel": "Ausgewählte Zeiten",
+    "removeTime": "{time} entfernen",
+    "howItWorks": {
+      "title": "So funktioniert deine Umfrage",
+      "description": "Erstelle einen Link, mit dem deine Gruppe die beste Zeit findet.",
+      "steps": {
+        "choose": { "title": "Mögliche Zeiten wählen", "description": "Füge Schnellzeiten hinzu oder gib genaue Uhrzeiten ein." },
+        "share": { "title": "Umfrage teilen", "description": "Sende den erstellten Link an alle Teilnehmenden." },
+        "respond": { "title": "Präferenzen sammeln", "description": "Teilnehmende markieren jede Zeit mit Ja, Bei Bedarf oder Nein." },
+        "review": { "title": "Ergebnis prüfen", "description": "Nutze die Verfügbarkeitsübersicht, um die beste Option zu erkennen." }
+      },
+      "accountNote": "Teilnehmende können ohne Konto antworten. Angemeldete Personen werden automatisch erkannt."
+    },
     "submitBtn": "Umfrage erstellen & Link teilen 🚀",
     "submitting": "Umfrage wird erstellt..."
   },
@@ -39,9 +112,13 @@
     "namePlaceholder": "z. B. Max Mustermann",
     "emailOptional": "E-Mail (Optional)",
     "emailPlaceholder": "max@beispiel.de",
+    "votingAs": "Abstimmung als {identity}. Du kannst diese Angaben für diese Antwort bearbeiten.",
+    "signedInParticipant": "dein angemeldetes Konto",
     "slotAvailability": "Deine Verfügbarkeit pro Zeit-Slot",
     "nameRequiredError": "Bitte gib deinen Namen ein, um abzustimmen.",
+    "invalidSubmissionError": "Prüfe deine Angaben und Verfügbarkeiten und versuche es erneut.",
     "submitError": "Fehler beim Senden der Stimmen. Bitte versuche es erneut.",
+    "successMessage": "Deine Verfügbarkeit wurde erfolgreich gespeichert.",
     "submitting": "Stimmen werden gesendet...",
     "submit": "Verfügbarkeit Absenden",
     "status": {

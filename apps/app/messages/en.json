@@ -3,6 +3,63 @@
     "title": "SlotSyncro 🗓️",
     "version": "v1.0"
   },
+  "Navigation": {
+    "menu": "Menu",
+    "toggleMenu": "Toggle navigation menu",
+    "dashboard": "Dashboard",
+    "eventTypes": "Event Types",
+    "availability": "Availability",
+    "bookings": "Bookings",
+    "createPoll": "Create Poll",
+    "accountActionsHint": "Account actions are available from your profile menu."
+  },
+  "Dashboard": {
+    "fallbackName": "there",
+    "greeting": "Welcome back, {name}",
+    "subtitle": "Choose a scheduling path or finish setting up direct booking.",
+    "summary": {
+      "title": "Scheduling overview",
+      "eventTypes": "Active event types",
+      "availabilityDays": "Availability days",
+      "upcomingBookings": "Upcoming bookings",
+      "polls": "Created polls"
+    },
+    "readiness": {
+      "title": "Direct scheduling readiness",
+      "description": "Complete these foundations before sharing an event link.",
+      "progress": "{completed}/2 complete",
+      "availability": "Set your weekly availability and timezone",
+      "eventType": "Create an active event type",
+      "complete": "Ready",
+      "incomplete": "Action needed",
+      "review": "Review",
+      "configure": "Configure"
+    },
+    "actions": {
+      "directScheduling": "Manage direct scheduling",
+      "createPoll": "Create a group poll"
+    },
+    "error": {
+      "title": "We couldn't load your dashboard",
+      "description": "Your scheduling data is safe. Try loading this section again.",
+      "retry": "Try again"
+    }
+  },
+  "Bookings": {
+    "title": "Upcoming Bookings",
+    "description": "Meeting times are shown in your saved host timezone.",
+    "duration": "{minutes} minutes",
+    "status": {
+      "accepted": "Accepted",
+      "cancelled": "Cancelled",
+      "pending": "Pending"
+    },
+    "empty": {
+      "title": "No upcoming meetings",
+      "description": "When guests schedule time with you, their bookings will appear here. Create or share an event link to get started.",
+      "action": "Manage event types"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Universal group scheduling & real-time availability heatmap builder.",
@@ -18,6 +75,22 @@
     "descPlaceholder": "Add meeting context...",
     "dateLabel": "Meeting Date *",
     "slotsLabel": "Select Available Time Slots (1-hour slots) *",
+    "slotsHint": "Use a quick time or add an exact time. Select at least one.",
+    "customTimeLabel": "Specific time",
+    "addTime": "Add time",
+    "selectedTimesLabel": "Selected times",
+    "removeTime": "Remove {time}",
+    "howItWorks": {
+      "title": "How your poll works",
+      "description": "Create one link that helps your group find the best meeting time.",
+      "steps": {
+        "choose": { "title": "Choose possible times", "description": "Add the times that work for you using quick picks or exact times." },
+        "share": { "title": "Share the poll", "description": "Send the generated link to everyone who should respond." },
+        "respond": { "title": "Collect preferences", "description": "Participants mark each time as yes, if needed, or no." },
+        "review": { "title": "Review the result", "description": "Use the availability heatmap to identify the strongest option." }
+      },
+      "accountNote": "Participants can respond without creating an account. Signed-in participants are identified automatically."
+    },
     "submitBtn": "Create Poll & Share Link 🚀",
     "submitting": "Creating Poll..."
   },
@@ -39,9 +112,13 @@
     "namePlaceholder": "e.g. Alex Johnson",
     "emailOptional": "Email (Optional)",
     "emailPlaceholder": "alex@example.com",
+    "votingAs": "Voting as {identity}. You can edit these details for this response.",
+    "signedInParticipant": "your signed-in account",
     "slotAvailability": "Your Availability per Slot",
     "nameRequiredError": "Please enter your name to submit votes.",
+    "invalidSubmissionError": "Check your details and availability choices, then try again.",
     "submitError": "Failed to submit votes. Please try again.",
+    "successMessage": "Your availability was saved successfully.",
     "submitting": "Submitting Votes...",
     "submit": "Submit Availability",
     "status": {

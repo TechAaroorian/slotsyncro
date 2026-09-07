@@ -1,7 +1,7 @@
 # Feature Inventory
 
 **Document status:** Initial draft  
-**Last reviewed against repository:** 2026-08-31
+**Last reviewed against repository:** 2026-09-07
 
 This inventory separates implemented behavior from proposals. It is not a marketing feature list.
 
@@ -39,7 +39,7 @@ This inventory separates implemented behavior from proposals. It is not a market
 | Slot generation across timezones | Current | Converts host availability to guest-local display and removes conflicting SlotSyncro bookings. |
 | Event-type buffers in public slot calculation | Partial | Buffer fields exist, but the public booking view currently passes zero to the slot generator. |
 | Double-booking protection | Partial | A conflict query exists, but check and insert are not protected by a database-level exclusion rule or equivalent atomic strategy. |
-| Booking dashboard | Partial | Lists upcoming bookings but lacks detail, cancellation, rescheduling, and accurate host-timezone presentation. |
+| Booking dashboard | Partial | Lists upcoming bookings in the host's saved timezone, but lacks detail, cancellation, rescheduling, and lifecycle filters. |
 | Meeting cancellation | Proposed | Requires lifecycle, authorization, notification, and calendar-update rules. |
 | Meeting rescheduling | Proposed | Direct selection and consensus-based rescheduling are both candidates. |
 | Multiple durations per event type | Exploratory | Useful after the core lifecycle is complete. |
@@ -62,10 +62,10 @@ This inventory separates implemented behavior from proposals. It is not a market
 
 | Capability | Status | Notes |
 | --- | --- | --- |
-| Poll creation | Partial | Supports one date and fixed one-hour candidates from 09:00 to 17:00. |
+| Poll creation | Partial | Supports one date with quick-pick and exact custom one-hour candidates. Multiple dates, explicit duration, and organizer timezone remain proposed. |
 | Public poll link | Current | Anyone with the slug can view and vote. |
 | Three-state preference | Current | `YES`, `IF_NEEDED`, and `NO`. |
-| Vote replacement | Partial | Previous votes are replaced by participant name; identity and cross-slot validation require stronger modeling. |
+| Vote replacement | Partial | Authenticated responses use the server session and anonymous responses use participant name. Poll-scoped identity and structural cross-poll validation require stronger modeling. |
 | Availability heatmap | Current | Displays preference counts and a weighted score. |
 | Poll management dashboard | Proposed | List, status, response progress, share, close, finalize, and archive actions. |
 | Poll lifecycle states | Proposed | Draft, open, finalized, expired, and cancelled. |
@@ -108,13 +108,13 @@ This inventory separates implemented behavior from proposals. It is not a market
 
 | Capability | Status | Notes |
 | --- | --- | --- |
-| Localized routing | Partial | English, Spanish, and German routing exists, but several links and redirects do not preserve locale. |
+| Localized routing | Current | English, Spanish, and German routes preserve locale across critical navigation, redirects, and poll-creation actions. |
 | Theme switching | Current | Light/dark theme support exists. |
-| Unified scheduling navigation | Proposed | Event types and polls should live within one authenticated scheduling area. |
-| Dashboard overview | Proposed | Current header references a dashboard route that does not exist. |
-| Poll vote confirmation | Proposed | Current success behavior refreshes the page without a clear completion state. |
+| Unified scheduling navigation | Current | Desktop sidebar and mobile drawer connect the dashboard, event types, availability, bookings, and poll creation. |
+| Dashboard overview | Current | Shows scheduling counts, readiness progress, and clear paths into direct scheduling or group polls. |
+| Poll vote confirmation | Current | Voting provides visible pending feedback and announced success or failure without an unexplained refresh. |
 | Consistent empty and error states | Partial | Implemented in some areas but not governed by shared patterns. |
-| Accessibility review | Proposed | Include keyboard, focus, semantic status, contrast, and screen-reader testing. |
+| Accessibility review | Current | Automated axe checks cover the primary poll forms, and the core keyboard/Narrator journey was manually verified in Edge for English and Spanish routes. Recorded limitations remain in the M1 accessibility report. |
 
 ## Technical and quality capabilities
 
@@ -135,6 +135,6 @@ This inventory separates implemented behavior from proposals. It is not a market
 1. Connect polls to a finalized meeting outcome.
 2. Give polls a dashboard, ownership controls, and lifecycle states.
 3. Make poll candidate creation multi-date and timezone-safe.
-4. Correct navigation and locale consistency.
+4. Preserve accessibility coverage as navigation and scheduling forms evolve.
 5. Define the future relationship among booking, poll, meeting, participant, and workspace before changing the schema.
 

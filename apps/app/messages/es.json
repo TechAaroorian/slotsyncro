@@ -3,6 +3,63 @@
     "title": "SlotSyncro 🗓️",
     "version": "v1.0"
   },
+  "Navigation": {
+    "menu": "Menú",
+    "toggleMenu": "Abrir o cerrar el menú de navegación",
+    "dashboard": "Panel",
+    "eventTypes": "Tipos de evento",
+    "availability": "Disponibilidad",
+    "bookings": "Reservas",
+    "createPoll": "Crear encuesta",
+    "accountActionsHint": "Las acciones de cuenta están disponibles en el menú de perfil."
+  },
+  "Dashboard": {
+    "fallbackName": "amigo",
+    "greeting": "Bienvenido de nuevo, {name}",
+    "subtitle": "Elige una opción de programación o termina de configurar las reservas directas.",
+    "summary": {
+      "title": "Resumen de programación",
+      "eventTypes": "Tipos de evento activos",
+      "availabilityDays": "Días disponibles",
+      "upcomingBookings": "Próximas reservas",
+      "polls": "Encuestas creadas"
+    },
+    "readiness": {
+      "title": "Preparación para reservas directas",
+      "description": "Completa estos pasos antes de compartir un enlace de evento.",
+      "progress": "{completed}/2 completados",
+      "availability": "Configura tu disponibilidad semanal y zona horaria",
+      "eventType": "Crea un tipo de evento activo",
+      "complete": "Listo",
+      "incomplete": "Acción necesaria",
+      "review": "Revisar",
+      "configure": "Configurar"
+    },
+    "actions": {
+      "directScheduling": "Gestionar reservas directas",
+      "createPoll": "Crear una encuesta grupal"
+    },
+    "error": {
+      "title": "No pudimos cargar tu panel",
+      "description": "Tus datos están seguros. Intenta cargar esta sección de nuevo.",
+      "retry": "Intentar de nuevo"
+    }
+  },
+  "Bookings": {
+    "title": "Próximas reservas",
+    "description": "Los horarios se muestran en tu zona horaria de anfitrión guardada.",
+    "duration": "{minutes} minutos",
+    "status": {
+      "accepted": "Aceptada",
+      "cancelled": "Cancelada",
+      "pending": "Pendiente"
+    },
+    "empty": {
+      "title": "No hay próximas reuniones",
+      "description": "Cuando los invitados reserven contigo, sus reuniones aparecerán aquí. Crea o comparte un enlace de evento para comenzar.",
+      "action": "Gestionar tipos de evento"
+    }
+  },
   "Home": {
     "title": "SlotSyncro 🗓️",
     "subtitle": "Programación de reuniones grupales y creador de mapas de calor en tiempo real.",
@@ -18,6 +75,22 @@
     "descPlaceholder": "Añadir contexto de la reunión...",
     "dateLabel": "Fecha de la reunión *",
     "slotsLabel": "Seleccione franjas horarias disponibles (1 hora) *",
+    "slotsHint": "Usa una hora rápida o añade una hora exacta. Selecciona al menos una.",
+    "customTimeLabel": "Hora específica",
+    "addTime": "Añadir hora",
+    "selectedTimesLabel": "Horas seleccionadas",
+    "removeTime": "Eliminar {time}",
+    "howItWorks": {
+      "title": "Cómo funciona tu encuesta",
+      "description": "Crea un enlace para ayudar al grupo a encontrar la mejor hora.",
+      "steps": {
+        "choose": { "title": "Elige horarios posibles", "description": "Añade horarios rápidos o introduce horas exactas." },
+        "share": { "title": "Comparte la encuesta", "description": "Envía el enlace generado a todas las personas que deben responder." },
+        "respond": { "title": "Recopila preferencias", "description": "Los participantes marcan cada hora como sí, si es necesario o no." },
+        "review": { "title": "Revisa el resultado", "description": "Usa el mapa de disponibilidad para identificar la mejor opción." }
+      },
+      "accountNote": "Los participantes pueden responder sin crear una cuenta. Los usuarios conectados se identifican automáticamente."
+    },
     "submitBtn": "Crear encuesta y compartir enlace 🚀",
     "submitting": "Creando encuesta..."
   },
@@ -39,9 +112,13 @@
     "namePlaceholder": "ej. Alejandro Gómez",
     "emailOptional": "Correo Electrónico (Opcional)",
     "emailPlaceholder": "alejandro@ejemplo.com",
+    "votingAs": "Votando como {identity}. Puedes editar estos datos para esta respuesta.",
+    "signedInParticipant": "tu cuenta conectada",
     "slotAvailability": "Tu Disponibilidad por Franja Horaria",
     "nameRequiredError": "Por favor, introduce tu nombre para enviar los votos.",
+    "invalidSubmissionError": "Revisa tus datos y opciones de disponibilidad e inténtalo de nuevo.",
     "submitError": "Error al enviar los votos. Inténtalo de nuevo.",
+    "successMessage": "Tu disponibilidad se guardó correctamente.",
     "submitting": "Enviando Votos...",
     "submit": "Enviar Disponibilidad",
     "status": {

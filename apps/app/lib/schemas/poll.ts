@@ -17,12 +17,38 @@ export const CreatePollSchema = z.object({
     .string()
     .min(1, { message: "Please select a valid meeting date." }),
   startHours: z
-    .array(z.string())
-    .min(1, { message: "Please select at least one time slot." }),
+    .array(
+      z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, {
+        message: "Each time slot must use the HH:mm format.",
+      }),
+    )
+    .min(1, { message: "Please select at least one time slot." })
+    .max(24, { message: "A poll can contain at most 24 time slots." })
+    .transform((times) => [...new Set(times)].sort()),
 });
 
 // TypeScript type inferred directly from the Zod Schema
 export type CreatePollInput = z.infer<typeof CreatePollSchema>;
+
+export const SubmitPollVotesSchema = z.object({
+  pollId: z.string().trim().min(1),
+  participantName: z.string().trim().min(1).max(100),
+  participantEmail: z.preprocess(
+    (value) =>
+      typeof value === "string" && value.trim() === "" ? undefined : value,
+    z.string().trim().email().optional(),
+  ),
+  votes: z
+    .array(
+      z.object({
+        slotId: z.string().trim().min(1),
+        status: z.enum(["YES", "IF_NEEDED", "NO"]),
+      }),
+    )
+    .min(1),
+});
+
+export type SubmitPollVotesInput = z.infer<typeof SubmitPollVotesSchema>;
 
 export type PollFormState = {
   errors?: {

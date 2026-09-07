@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useTranslations } from "next-intl";
 import { createPoll } from "@/app/actions/poll";
 import { PollFormState } from "@/lib/schemas/poll";
@@ -8,35 +8,42 @@ import { PollFormState } from "@/lib/schemas/poll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const initialState: PollFormState = {};
+const quickTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 
-export function CreatePollForm() {
+export function CreatePollForm({ locale }: { locale: string }) {
   const t = useTranslations("CreatePoll");
+  const createLocalizedPoll = createPoll.bind(null, locale);
   const [state, formAction, isPending] = useActionState(
-    createPoll,
+    createLocalizedPoll,
     initialState,
   );
+  const [selectedTimes, setSelectedTimes] = useState<string[]>([]);
+  const [customTime, setCustomTime] = useState("");
 
-  const defaultHours = [
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-  ];
+  function toggleTime(time: string) {
+    setSelectedTimes((current) =>
+      current.includes(time)
+        ? current.filter((value) => value !== time)
+        : [...current, time].sort(),
+    );
+  }
+
+  function addCustomTime() {
+    if (!customTime) return;
+    setSelectedTimes((current) =>
+      current.includes(customTime)
+        ? current
+        : [...current, customTime].sort(),
+    );
+    setCustomTime("");
+  }
 
   return (
-    <Card className="max-w-xl mx-auto shadow-sm">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">{t("title")}</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <Card className="w-full shadow-sm">
+      <CardContent className="pt-6">
         <form action={formAction} className="space-y-5">
           {/* General Form Error */}
           {state.errors?.formError && (
@@ -92,32 +99,48 @@ export function CreatePollForm() {
           </div>
 
           {/* Time Slots Selection */}
-          <div className="space-y-2">
-            <Label>{t("slotsLabel")}</Label>
+          <fieldset className="space-y-3">
+            <legend className="text-sm font-medium">{t("slotsLabel")}</legend>
+            <p className="text-xs text-muted-foreground">{t("slotsHint")}</p>
             <div className="grid grid-cols-3 gap-2">
-              {defaultHours.map((hour) => (
-                <label
-                  key={hour}
-                  className="flex items-center space-x-2 p-2.5 bg-muted/50 border border-border rounded-lg hover:bg-muted cursor-pointer transition-colors"
+              {quickTimes.map((time) => (
+                <button
+                  type="button"
+                  aria-pressed={selectedTimes.includes(time)}
+                  onClick={() => toggleTime(time)}
+                  key={time}
+                  className="rounded-lg border border-border p-2.5 text-xs font-medium transition-colors hover:bg-muted aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground"
                 >
-                  <input
-                    type="checkbox"
-                    name="startHours"
-                    value={hour}
-                    className="w-4 h-4 rounded border-input"
-                  />
-                  <span className="text-xs font-medium text-foreground">
-                    {hour}
-                  </span>
-                </label>
+                  {time}
+                </button>
               ))}
             </div>
+            <div className="flex items-end gap-2">
+              <div className="flex-1 space-y-2">
+                <Label htmlFor="customTime">{t("customTimeLabel")}</Label>
+                <Input id="customTime" type="time" value={customTime} onChange={(event) => setCustomTime(event.target.value)} />
+              </div>
+              <Button type="button" variant="outline" onClick={addCustomTime} disabled={!customTime}>
+                {t("addTime")}
+              </Button>
+            </div>
+            {selectedTimes.length > 0 && (
+              <div className="flex flex-wrap gap-2" aria-label={t("selectedTimesLabel")}>
+                {selectedTimes.map((time) => (
+                  <span key={time} className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm">
+                    {time}
+                    <button type="button" onClick={() => toggleTime(time)} aria-label={t("removeTime", { time })} className="font-bold text-muted-foreground hover:text-foreground">×</button>
+                    <input type="hidden" name="startHours" value={time} />
+                  </span>
+                ))}
+              </div>
+            )}
             {state.errors?.startHours && (
               <p className="text-xs text-destructive font-medium">
                 {state.errors.startHours[0]}
               </p>
             )}
-          </div>
+          </fieldset>
 
           {/* Submit Button */}
           <Button
