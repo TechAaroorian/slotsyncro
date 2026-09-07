@@ -1,6 +1,6 @@
 # M1 accessibility verification
 
-**Status:** Automated component checks added; manual browser pass pending
+**Status:** Automated component checks and core manual browser pass completed
 
 ## Automated coverage
 
@@ -41,4 +41,14 @@ Run this checklist in English and one non-default locale at desktop and mobile w
 
 ## Completion record
 
-Record the browser, operating system, keyboard-only result, screen reader used, contrast result, and any follow-up issue before marking the M1 accessibility completion evidence satisfied.
+| Item | Result |
+| --- | --- |
+| Date | 2026-09-07 |
+| Browser and operating system | Microsoft Edge on Windows |
+| Screen reader | Windows Narrator |
+| Locales exercised | English and Spanish |
+| Keyboard and screen-reader result | Core navigation and Create Poll interaction worked without an identified blocker. Tabbing from navigation correctly moved to the first interactive form control; headings remained available through Narrator browse/heading navigation. |
+| Automated result | Create Poll and Public Poll Voting axe component scans passed. |
+| Limitations | Spanish translation quality was not assessed because the tester does not speak Spanish. Exact desktop/mobile viewport sizes and a separate measured contrast result were not recorded. |
+
+The M1 requirement for automated primary-form coverage and a documented manual keyboard/screen-reader pass is satisfied. Re-run this checklist after material navigation, form-control, theme, or layout changes.
