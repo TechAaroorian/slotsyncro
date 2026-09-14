@@ -39,6 +39,7 @@ Statements about current behavior should be verifiable in code. Proposed behavio
 | [Deployment architecture](./deployment-architecture.md) | Environments, deployable units, database, releases, secrets, observability, backups, and recovery | Proposed deployment design |
 | [Roadmap](./roadmap.md) | Vertical delivery milestones, dependencies, decision gates, and completion evidence | Proposed delivery plan |
 | [M0 baseline reconciliation](./baseline-m0.md) | Validation evidence, environment contracts, migration gaps, data-quality queries, and Server Action conventions | Current baseline |
+| [M2 poll-to-meeting migration proposal](./m2-migration-proposal.md) | Staged schema, backfill, integrity, concurrency, rollback, and verification plan for the M2 vertical slice | Proposed for review |
 | [Content opportunities](./content-opportunities.md) | Reusable learning and publishing ideas discovered during development | Active backlog |
 
 ## Articles
