@@ -7,15 +7,23 @@
 
 The maintained product design, feature inventory, repository architecture, and documentation roadmap are available in the [design documentation](./docs/README.md).
 
-[![Test Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](https://techaaroorian.github.io/slotsyncro/)
+[View the SlotSyncro project site](https://techaaroorian.github.io/slotsyncro/)
 
 ---
 
-## 🚀 Live Interactive Test Coverage Report
+## 📸 Product Preview
 
-The unit test suite achieves full coverage using **Vitest** and **happy-dom**. The interactive HTML coverage report is automatically updated and deployed via GitHub Actions on every push to `main`:
+### Connected scheduling dashboard
 
-👉 **[View Live Coverage Report](https://techaaroorian.github.io/slotsyncro/)**
+[![SlotSyncro dashboard showing scheduling totals and a completed readiness checklist](./apps/marketing/public/screenshots/dashboard.png)](./apps/marketing/public/screenshots/dashboard.png)
+
+### Create and share a group poll
+
+[![Create Poll page with poll details, quick time choices, and an explanation panel](./apps/marketing/public/screenshots/create-poll.png)](./apps/marketing/public/screenshots/create-poll.png)
+
+### Collect availability publicly
+
+[![Public SlotSyncro poll showing group availability and an accountless participant response form](./apps/marketing/public/screenshots/voting-poll.png)](./apps/marketing/public/screenshots/voting-poll.png)
 
 ---
 
@@ -26,14 +34,16 @@ This project is structured as a **Turborepo** workspace using `pnpm`:
 ```text
 slotsyncro/
 ├── apps/
-│   └── app/               # Main Next.js App Router application
+│   ├── app/               # Main Next.js App Router application
+│   └── marketing/         # Static project site deployed to GitHub Pages
 ├── packages/
 │   ├── db/                # Prisma ORM schema, client export, and DB scripts (@repo/db)
 │   ├── eslint-config/     # Shared ESLint configuration
 │   └── typescript-config/ # Shared TypeScript configuration
 ├── .github/
 │   └── workflows/
-│       └── coverage.yml   # CI/CD test coverage & GitHub Pages deploy workflow
+│       ├── coverage.yml   # Test coverage and PR reporting
+│       └── pages.yml      # Marketing-site GitHub Pages deployment
 ├── package.json           # Root pnpm workspace scripts
 └── pnpm-workspace.yaml
 
@@ -59,7 +69,7 @@ slotsyncro/
 ### Prerequisites
 
 * **Node.js:** v20+
-* **Package Manager:** `pnpm` v9+
+* **Package Manager:** `pnpm` v11.24.0
 
 ### Environment & Setup
 
@@ -87,7 +97,7 @@ Set up your environment variables for local development:
 1. **Generate Prisma Client:**
 
 ```bash
-pnpm --filter @repo/db db:generate
+pnpm --filter db db:generate
 
 ```
 
@@ -98,7 +108,7 @@ pnpm dev
 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open the marketing site at [http://localhost:3000](http://localhost:3000) and the product application at [http://localhost:3001](http://localhost:3001).
 
 ---
 
@@ -118,7 +128,7 @@ pnpm test
 ### CI/CD Workflow
 
 * **Pull Requests:** GitHub Actions runs `vitest run --coverage`, generates Prisma client artifacts with a CI connection fallback, and posts a line-by-line coverage breakdown as a PR comment.
-* **Main Branch:** Automatically builds and deploys the generated Vitest HTML report to **GitHub Pages**.
+* **Main Branch:** Builds and deploys the static SlotSyncro project site to **GitHub Pages** when marketing files change.
 
 ---
 

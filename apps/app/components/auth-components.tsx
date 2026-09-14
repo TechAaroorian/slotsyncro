@@ -3,9 +3,9 @@ import { signIn, signOut } from "@/auth";
 
 export function SignIn() {
   return (
-    <div className="flex w-full flex-col gap-2 sm:flex-row">
+    <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
       <form
-        className="w-full"
+        className="w-full sm:w-auto"
         action={async () => {
           "use server";
           await signIn("google");
@@ -13,7 +13,7 @@ export function SignIn() {
       >
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-800 shadow-sm transition-all hover:bg-gray-50 active:scale-95 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
+          className="flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-gray-300 bg-white px-4 text-sm font-medium text-gray-800 shadow-sm transition-all hover:bg-gray-50 active:scale-95 sm:min-w-52 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
         >
           <svg
             aria-hidden="true"
@@ -43,7 +43,7 @@ export function SignIn() {
       </form>
 
       <form
-        className="w-full"
+        className="w-full sm:w-auto"
         action={async () => {
           "use server";
           await signIn("github");
@@ -51,7 +51,7 @@ export function SignIn() {
       >
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 text-sm font-medium text-white shadow-md transition-all hover:bg-gray-800 active:scale-95 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+          className="flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-gray-900 px-4 text-sm font-medium text-white shadow-md transition-all hover:bg-gray-800 active:scale-95 sm:min-w-52 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
         >
           <svg
             aria-hidden="true"
