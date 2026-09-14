@@ -40,7 +40,7 @@ export async function Header() {
         <Link href={`/${locale}`} className="flex items-center space-x-2 group">
           <Logo className="w-7 h-7 group-hover:scale-105 transition-transform" />
           <span className="text-xl font-black tracking-tight group-hover:text-primary transition-colors">
-            SlotSyncro 🗓️
+            SlotSyncro
           </span>
           <Badge
             variant="outline"

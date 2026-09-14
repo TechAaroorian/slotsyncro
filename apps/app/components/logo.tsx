@@ -1,80 +1,17 @@
-// components/logo.tsx
 export function Logo({ className = "w-7 h-7" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 32 32"
+      viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      aria-hidden="true"
+      focusable="false"
     >
-      {/* Outer Rounded Calendar Frame */}
-      <rect
-        x="2"
-        y="4"
-        width="28"
-        height="24"
-        rx="6"
-        className="stroke-gray-900 dark:stroke-white"
-        strokeWidth="2.5"
-      />
-
-      {/* Top Header Bar Line */}
-      <path
-        d="M2 11H30"
-        className="stroke-gray-900 dark:stroke-white"
-        strokeWidth="2"
-      />
-
-      {/* Grid Slots (Representing Available Time Slots) */}
-      <rect
-        x="6"
-        y="15"
-        width="5"
-        height="4"
-        rx="1.5"
-        className="fill-gray-300 dark:fill-gray-700"
-      />
-      <rect
-        x="13.5"
-        y="15"
-        width="5"
-        height="4"
-        rx="1.5"
-        className="fill-blue-600 dark:fill-blue-500"
-      />
-      <rect
-        x="21"
-        y="15"
-        width="5"
-        height="4"
-        rx="1.5"
-        className="fill-gray-300 dark:fill-gray-700"
-      />
-
-      <rect
-        x="6"
-        y="21"
-        width="5"
-        height="4"
-        rx="1.5"
-        className="fill-blue-600 dark:fill-blue-500"
-      />
-      <rect
-        x="13.5"
-        y="21"
-        width="5"
-        height="4"
-        rx="1.5"
-        className="fill-gray-300 dark:fill-gray-700"
-      />
-      <rect
-        x="21"
-        y="21"
-        width="5"
-        height="4"
-        rx="1.5"
-        className="fill-emerald-500"
-      />
+      <rect width="64" height="64" rx="18" fill="#1E6646" />
+      <rect x="13" y="17" width="31" height="12" rx="6" fill="white" />
+      <rect x="20" y="35" width="31" height="12" rx="6" fill="white" />
+      <circle cx="46" cy="19" r="7" fill="#E97855" stroke="#1E6646" strokeWidth="4" />
     </svg>
   );
 }
