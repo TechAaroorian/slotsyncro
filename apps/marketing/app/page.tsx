@@ -42,7 +42,7 @@ export default function MarketingHomePage() {
       <main id="top" className="site-shell">
         <section className="hero" aria-labelledby="hero-title">
           <div>
-            <p className="eyebrow">Open scheduling project</p>
+            <p className="eyebrow">Public portfolio project</p>
             <h1 id="hero-title">Find the time that works.</h1>
             <p className="hero-copy">
               SlotSyncro brings direct bookings and group availability polls into
@@ -131,7 +131,7 @@ export default function MarketingHomePage() {
 
         <section id="roadmap" className="section" aria-labelledby="roadmap-title">
           <div className="section-heading">
-            <p className="eyebrow">Built in public</p>
+            <p className="eyebrow">Developed in public</p>
             <h2 id="roadmap-title">A working product with an honest roadmap.</h2>
           </div>
           <div className="roadmap-panel">
@@ -174,7 +174,10 @@ export default function MarketingHomePage() {
           <p className="footer-title">SlotSyncro</p>
           <p>Scheduling that finds common ground.</p>
         </div>
-        <p>Designed and developed in public by Janarthanan Soundhararajan.</p>
+        <div>
+          <p>Designed and developed in public by Janarthanan Soundhararajan.</p>
+          <p>Source-visible portfolio project · All Rights Reserved · Not open source.</p>
+        </div>
       </footer>
     </>
   );

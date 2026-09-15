@@ -3,6 +3,8 @@
 
 > A modern, serverless group scheduling platform and availability heatmap builder built with **Next.js (App Router)**, **TypeScript**, **Turborepo**, and **Neon PostgreSQL**.
 
+SlotSyncro is developed publicly as a source-visible portfolio project. It is **not open source**; the repository remains **All Rights Reserved**.
+
 ## Product and architecture documentation
 
 The maintained product design, feature inventory, repository architecture, and documentation roadmap are available in the [design documentation](./docs/README.md).
