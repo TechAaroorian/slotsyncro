@@ -42,7 +42,10 @@ export default function MarketingHomePage() {
       <main id="top" className="site-shell">
         <section className="hero" aria-labelledby="hero-title">
           <div>
-            <p className="eyebrow">Public portfolio project</p>
+            <div className="hero-labels">
+              <p className="eyebrow">Public portfolio project</p>
+              <span className="project-status">In progress</span>
+            </div>
             <h1 id="hero-title">Find the time that works.</h1>
             <p className="hero-copy">
               SlotSyncro brings direct bookings and group availability polls into
