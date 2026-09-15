@@ -110,6 +110,42 @@ a {
   content: "";
 }
 
+.hero-labels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero-labels .eyebrow {
+  margin: 0;
+}
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid rgba(233, 120, 85, 0.42);
+  border-radius: 999px;
+  color: #7a321f;
+  background: rgba(233, 120, 85, 0.14);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.project-status::before {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--coral);
+  content: "";
+}
+
 h1,
 h2,
 h3,
