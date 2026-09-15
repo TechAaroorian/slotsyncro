@@ -36,7 +36,7 @@ flowchart LR
     M6[M6 Calendar integration]
     M7[M7 Fair scheduling]
     M8[M8 Collaboration]
-    M9[M9 Production validation]
+    M9[M9 Production observability and validation]
 
     M0 --> M1 --> M2 --> M3 --> M4 --> M5 --> M6 --> M7 --> M8 --> M9
 ```
@@ -291,11 +291,12 @@ Personal workspaces should exist earlier as an invisible tenancy boundary; this 
 - Invitation tokens are hashed, expiring, purpose-limited, and revocable.
 - Administrative changes have sufficient audit history.
 
-## M9: Validate production operation
+## M9: Observe and validate production operation
 
 ### User outcome
 
-The product remains trustworthy through releases and recoverable failures.
+The product remains trustworthy through releases and recoverable failures, and
+production failures are detected without waiting for a user to report them.
 
 ### Scope
 
@@ -303,11 +304,49 @@ The product remains trustworthy through releases and recoverable failures.
 - Isolate preview and production databases and provider credentials.
 - Execute reviewed, serialized production migrations.
 - Add deployment smoke tests for critical journeys.
+- Capture unhandled browser, React, Server Action, and route errors with the
+  deployment identifier, safe route context, and source-mapped stack trace.
+- Monitor the marketing site, product application, and a minimal health endpoint
+  from infrastructure outside the application deployment.
+- Run scheduled synthetic-browser checks for critical public booking and poll
+  journeys.
+- Define error severity, alert thresholds, notification routes, and ownership so
+  isolated noise does not hide user-impacting failures.
+- Scrub credentials, tokens, cookies, personal form values, and sensitive poll or
+  booking content before telemetry leaves the application.
 - Define service indicators and actionable alerts.
 - Enable managed backups and point-in-time recovery.
 - Set initial RTO and RPO.
 - Run and document a restore/reconciliation exercise.
 - Review privacy, retention, rate limiting, and public-endpoint abuse controls.
+
+### Open-source observability toolchain
+
+| Layer | Selected tool | Role in SlotSyncro |
+| --- | --- | --- |
+| Real-user error monitoring | GlitchTip | Receive and group browser and server exceptions, retain safe breadcrumbs, associate errors with releases, and notify the maintainer. Use a compatible open-source client SDK in the Next.js application. |
+| Independent uptime monitoring | Uptime Kuma | Check the public marketing site, application entry point, and health endpoint from outside the deployment; deliver downtime and recovery notifications. |
+| Synthetic journey monitoring | Playwright | Run a real browser against critical booking and poll paths on a schedule and retain traces, screenshots, and network evidence when a check fails. |
+| CI scheduler and evidence | GitHub Actions | Run Playwright smoke checks on a schedule and after selected deployments, then retain failure artifacts. This is existing project infrastructure rather than the telemetry backend. |
+| Future server tracing | OpenTelemetry | Add vendor-neutral server traces and metrics when cross-operation diagnosis requires them. Browser instrumentation is deferred until its ecosystem is stable enough for the required signals. |
+
+GlitchTip, Uptime Kuma, and the telemetry storage must run independently of the
+SlotSyncro deployment they monitor. Hosting the only uptime monitor inside the
+same failed environment would prevent it from sending the outage alert.
+
+### Delivery sequence
+
+1. Add safe release identifiers, correlation IDs, and centralized telemetry
+   scrubbing rules.
+2. Integrate GlitchTip with root and route error boundaries plus server-side
+   exception capture; upload production source maps privately.
+3. Deploy Uptime Kuma independently and test both outage and recovery alerts.
+4. Add non-mutating Playwright checks for public pages, followed by controlled
+   disposable-data journeys for voting and booking.
+5. Establish alert thresholds and a short diagnosis runbook covering release,
+   route, stack trace, breadcrumbs, logs, and reproduction evidence.
+6. Evaluate OpenTelemetry for server traces only after the initial error,
+   uptime, and synthetic layers produce a demonstrated diagnostic gap.
 
 Deployment begins before this milestone; this milestone proves the operational guarantees rather than merely obtaining a public URL.
 
@@ -318,6 +357,14 @@ Deployment begins before this milestone; this milestone proves the operational g
 - A restore exercise meets or informs the stated recovery targets.
 - Failed notification/calendar work is observable and recoverable.
 - Critical user journeys are verified after deployment.
+- A deliberately triggered browser error is grouped in GlitchTip and resolves to
+  the original source through a private source map.
+- A deliberately failed health check produces an alert and a recovery
+  notification through Uptime Kuma.
+- A scheduled Playwright failure retains enough trace, screenshot, console, and
+  network evidence to diagnose the broken journey.
+- Telemetry inspection confirms that secrets, authentication material, and
+  personal form values are not captured.
 
 ## Cross-cutting test strategy
 
